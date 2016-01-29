@@ -1,2 +1,2 @@
-/node_modules/fis*
-/node_modules/feather-*
+/node_modules/**
+!/node_modules/feather2*
