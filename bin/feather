@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var Liftoff = require('liftoff');
+var argv = require('minimist')(process.argv.slice(2));
+var path = require('path');
+var cli = new Liftoff({
+	name: 'feather2',
+	processTitle: 'feather',
+	moduleName: 'feather2',
+	configName: '{feather-conf,feather_conf}',
+	extensions: {
+		'.js': null
+	}
+});
+
+cli.launch({
+	cwd: argv.r || argv.root,
+	configPath: argv.f || argv.file
+}, function(env){
+	var feather;
+
+	env.modulePath = path.join(__dirname, '../index.js');
+	feather = require(env.modulePath);
+	feather.set('system.localNPMFolder', path.join(env.cwd, 'node_modules/feather2'));
+	feather.set('system.globalNPMFolder', path.dirname(__dirname));
+	feather.cli.name = this.name;
+	feather.cli.run(argv, env);
+});
