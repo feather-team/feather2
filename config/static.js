@@ -1,0 +1,1 @@
+feather.config.set('project.mode', 'static');
