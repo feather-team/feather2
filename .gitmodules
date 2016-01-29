@@ -1,0 +1,6 @@
+[submodule "node_modules/feather2-postprocesser-analyse"]
+	path = node_modules/feather2-postprocesser-analyse
+	url = https://github.com/feather-team/feather2-postprocesser-analyse.git
+[submodule "node_modules/feather2-preprocesser-analyse"]
+	path = node_modules/feather2-preprocesser-analyse
+	url = https://github.com/feather-team/feather2-preprocesser-analyse.git
