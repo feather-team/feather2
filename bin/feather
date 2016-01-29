@@ -21,7 +21,7 @@ cli.launch({
 
 	env.modulePath = path.join(__dirname, '../index.js');
 	feather = require(env.modulePath);
-	feather.set('system.localNPMFolder', path.join(env.cwd, 'node_modules/feather2'));
+	feather.set('system.localNPMFolder', path.join(env.cwd));
 	feather.set('system.globalNPMFolder', path.dirname(__dirname));
 	feather.cli.name = this.name;
 	feather.cli.run(argv, env);

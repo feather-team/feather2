@@ -1,6 +1,6 @@
 feather.cli.name = 'feather';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
-feather.require.prefixes.unshift('feather');
+feather.require.prefixes.unshift('feather', 'feather2');
 feather.set('modules.commands', ['init', 'release', 'server', 'install', 'inspect', 'switch']);
 
 feather.cli.version = function(){        
