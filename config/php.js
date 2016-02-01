@@ -97,6 +97,7 @@ feather.match('/{feather_conf.js,feather-conf.js}', {
     release: false
 });
 
-// feather.match('::package', {
-//     postpackager: [feather.plugin('map-before')]
-// });
+feather.match('::package', {
+    prepackager: feather.plugin('analyse'),
+    postpackager: feather.plugin('analyse')
+});
