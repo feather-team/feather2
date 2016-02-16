@@ -19,12 +19,15 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
+    comboDebug: {},
+
+    cssA2R: true,
+
     template: {
         suffix: 'html' 
     },
 
     widget: {
-        dir: 'widget',
         rules: [        
             /*
             :nav => /widget/nav/nav.tpl
@@ -39,10 +42,6 @@ feather.config.merge({
                 return (_1 ? (_1 + '/') : '') + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.' + feather.config.get('template.suffix')));
             }]
         ]
-    },
-
-    components: {
-        dir: 'ui'
     },
 
     statics: '/static',
@@ -86,6 +85,10 @@ feather.on('conf:loaded', function(){
     feather.commonMap = {};
 
     var modulename = feather.config.get('project.modulename'), ns = feather.config.get('project.name');
+
+    if(!ns){
+        feather.config.set('project.name', ns = '_default');
+    }
 
     //查找是否有common模块
     if(modulename && modulename != 'common'){

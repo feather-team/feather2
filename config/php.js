@@ -2,16 +2,9 @@ if(feather.util.isEmpty(feather.config.get('project.domain'))){
     feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
 }
 
-feather.match('/(**)', {
-    url: '${statics}/s_/$1',
-    release: 'static/${statics}/s_/$1',
-    isMod: true,
+feather.match('**', {
     useHash: true,
     isHtmlLike: false
-});
-
-feather.match('**.${template.suffix}', {
-    isPage: true
 });
 
 feather.match('**.js', {
@@ -28,47 +21,39 @@ feather.match('page/(**)', {
     release: 'static/${statics}/p_/$1'
 });
 
-feather.match('${widget.dir}/(**)', {
+feather.match('widget/(**)', {
     url: '${statics}/w_/$1',
     release: 'static/${statics}/w_/$1',
-    isMod: true,
-    isWidget: true,
-    isHtmlLike: false,
-    isPage: false
+    isWidget: true
 });
 
 feather.match('pagelet/(**)', {
     url: '${statics}/pl_/$1',
     release: 'static/${statics}/pl_/$1',
-    isMod: true,
     isWidget: true,
-    isPagelet: true,
-    isHtmlLike: false,
-    isPage: false
-});
-
-feather.match('${components.dir}/(**)', {
-    postprocessor: false,
-    url: '${statics}/c_/$1',
-    release: 'static/${statics}/c_/$1',
-    isMod: true,
-    isComponent: true,
-    isHtmlLike: false,
-    isPage: false
-});
-
-feather.match('${components.dir}/**.js', {
-    useSameNameRequire: true
+    isPagelet: true
 });
 
 feather.match('**.${template.suffix}', {
     release: 'view/$&',
     isHtmlLike: true,
-    isMod: false,
-    useMap: true,
     useHash: false,
+    useMap: true,
+    url: false,
     preprocessor: feather.plugin('analyse'),
     postprocessor: [feather.plugin('analyse'), feather.plugin('inline-compress')]
+});
+
+feather.match('components/(**)', {
+    postprocessor: false,
+    url: '${statics}/c_/$1',
+    release: 'static/${statics}/c_/$1',
+    isComponent: true,
+    isHtmlLike: false
+});
+
+feather.match('components/**.js', {
+    useSameNameRequire: true
 });
 
 feather.match('**.{less,css}', {
@@ -77,19 +62,22 @@ feather.match('**.{less,css}', {
 });
 
 feather.match('static/(**)', {
-    isPage: false,
+    isHtmlLike: false,
     url: '${statics}/$1',
-    release: 'static/${statics}/$1',
-    isMod: true
+    release: 'static/${statics}/$1'
 });
 
 feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
     useParser: false,
     useCompile: false,
     useHash: false,
-    isThird: true,
-    isMod: false
+    isThird: true
 });
+
+feather.match('/{map,plugins}/**', {
+    release: '/view/$&',
+    useHash: false
+})
 
 feather.match('/{feather_conf.js,feather-conf.js}', {
     useCompile: false,
@@ -98,6 +86,13 @@ feather.match('/{feather_conf.js,feather-conf.js}', {
 });
 
 feather.match('::package', {
-    prepackager: feather.plugin('analyse'),
-    postpackager: feather.plugin('analyse')
+    packager: feather.plugin('map'),
+    postpackager: feather.plugin('runtime')
+});
+
+feather.match('/**', {
+    deploy: feather.plugin('local-deliver', {
+        to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
+        subOnly: true
+    })
 });

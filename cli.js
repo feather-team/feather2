@@ -2,6 +2,7 @@ feather.cli.name = 'feather';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
 feather.require.prefixes.unshift('feather', 'feather2');
 feather.set('modules.commands', ['init', 'release', 'server', 'install', 'inspect', 'switch']);
+feather.$_ = {argv: {}, commonMap: {}};
 
 feather.cli.version = function(){        
     var string = feather.util.read(__dirname + '/vendor/icon', true);
@@ -49,12 +50,19 @@ feather.cli.run = function(argv, env){
                         break;
                     }
 
-                    if(action.c || action.clean){
+                    if(argv.c || argv.clean){
                         var www = feather.project.getTempPath('www');
 
-                        'proj static c_proj'.split(' ').forEach(function(item){
+                        'proj static c_proj view php'.split(' ').forEach(function(item){
                             feather.util.del(www + '/' + item);
                         });
+                    }
+
+                    var dest = argv.d || argv.dest;
+
+                    if(typeof dest != 'string'){
+                        argv.dest = 'preview';
+                        delete argv.d;
                     }
 
                     old(argv, env);
