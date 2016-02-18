@@ -14,6 +14,7 @@
   "dependencies": {
     "feather-command-init": "^0.1.3",
     "feather-command-switch": "^0.1.0",
+    "feather-optimizer-htmlmin": "^0.1.2",
     "feather-postprocessor-inline-compress": "^0.1.3",
     "fis-parser-less": "^0.1.3",
     "fis3": "^3.3.15",

@@ -1,5 +1,4 @@
 feather.match('**', {
-    useHash: true,
     isHtmlLike: false
 });
 
@@ -74,24 +73,7 @@ feather.match('/{map,plugins}/**', {
     useHash: false
 });
 
-feather.match('/test/**', {
-    useHash: false
-})
-
-feather.match('/{feather_conf.js,feather-conf.js}', {
-    useCompile: false,
-    useParser: false,
-    release: false
-});
-
 feather.match('::package', {
     packager: feather.plugin('map'),
     postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
-});
-
-feather.match('/**', {
-    deploy: feather.plugin('local-deliver', {
-        to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
-        subOnly: true
-    })
 });

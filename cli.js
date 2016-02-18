@@ -1,8 +1,7 @@
 feather.cli.name = 'feather';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
-feather.require.prefixes.unshift('feather', 'feather2');
+feather.require.prefixes.unshift('feather', 'feather2', 'fis');
 feather.set('modules.commands', ['init', 'release', 'server', 'install', 'inspect', 'switch']);
-feather.$_ = {argv: {}, commonMap: {}};
 
 feather.cli.version = function(){        
     var string = feather.util.read(__dirname + '/vendor/icon', true);
@@ -65,7 +64,12 @@ feather.cli.run = function(argv, env){
                         delete argv.d;
                     }
 
+                    feather._argv = argv;
+                    
+                    require('./conf-loaded.js');
+
                     old(argv, env);
+
                     break;
 
                 default:

@@ -31,6 +31,88 @@ feather.on('conf:loaded', function(){
             feather.log.error('Run common module first please!');
         }
     }
+})
+
+//load all pack.json
+feather.on('conf:loaded', function(){
+    var files = feather.project.getSourceByPatterns('**/pack.json');
+    var path = require('path');
+    var previousPack = feather.config.get('pack') || {}, pack = {};
+
+    Object.keys(files).reverse().forEach(function(subpath){
+        var file = files[subpath];
+        var dir = path.dirname(file.id) + '/';
+        var json;
+
+        try{
+            json = JSON.parse(file.getContent());
+        }catch(e){
+            feather.log.warn('unable to load file [`%s`].', file.id);
+        }
+
+        if(json){
+            for(var i in json){
+                var list = json[i];
+
+                if(i[0] == '.'){
+                    i = path.normalize(dir + i).replace(/[\\\/]+/g, '/');
+                }
+
+                if(list.constructor != Array){
+                    list = [list];
+                }
+
+                list = list.map(function(item){
+                    if(typeof item == 'string' && item[0] == '.'){
+                        return path.normalize(dir + item).replace(/[\\\/]+/g, '/');
+                    }
+
+                    return item;
+                });
+
+                pack[i] = list;
+            }
+        }
+    });
+
+    for(var i in pack){
+        previousPack[i] = pack[i];
+    }
+    
+    feather.config.set('pack', previousPack);
+});
+
+//load config.js
+feather.on('conf:loaded', function(){
+    var media = feather.project.currentMedia();
+
+    switch(media){
+        case 'pd':
+        case 'production':
+            feather.match('**.js', {
+                optimizer: feather.plugin('uglify-js')
+            });
+
+            feather.match('**.{less,css}', {
+                optimizer: feather.plugin('clean-css')
+            });
+
+            feather.match('**.${template.suffix}', {
+                optimizer: feather.plugin('htmlmin')
+            });
+
+            feather.match('**.png', {
+                optimizer: feather.plugin('png-compressor')
+            });
+
+        case 'test':
+            feather.match('**', {
+                useHash: true
+            });
+            break;
+
+        default:;
+    }
 
     switch(feather.config.get('project.mode')){
         case 'php':
@@ -40,4 +122,43 @@ feather.on('conf:loaded', function(){
         default:
             require('./config/static.js');
     }
-})
+
+    //common config
+    var isPreview = feather._argv.dest == 'preview';
+
+    feather.match('/test/**', {
+        useHash: false,
+        release: isPreview ? '$&' : false
+    });
+
+    feather.match('/{rewrite.php,feather_rewrite.php}', {
+        useHash: false,
+        release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
+    });
+
+    feather.match('/{feather_compatible.php,compatible.php}', {
+        release: isPreview ? '/tmp/compatible.php' : false,
+        useHash: false
+    });
+
+    feather.match('**/{feather_conf.js,feather-conf.js,conf.js,pack.json}', {
+        useCompile: false,
+        useParser: false,
+        release: false
+    });
+
+    feather.match('**/component.json', {
+        useCompile: false,
+        useHash: false,
+        useParser: false
+    });
+
+    if(isPreview){
+        feather.match('/**', {
+            deploy: feather.plugin('local-deliver', {
+                to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
+                subOnly: true
+            })
+        });
+    }
+});

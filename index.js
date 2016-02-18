@@ -2,9 +2,6 @@
 
 global.feather = module.exports = require('fis3');
 
-//require cli.js overwrite fis-cli.js
-require('./cli.js');
-
 //feather default config
 feather.config.merge({
     project: {
@@ -75,27 +72,16 @@ feather.config.merge({
     },
 
     server: {
-        rewrite: 'index.php'
+        rewrite: 'index.php',
+        type: 'php'
     }
 });
 
-// feather.on('conf:loaded', function(){
-//     console.log(1);
-//     switch(feather.config.get('project.mode')){
-//         case 'php':
-//             require('./config/php.js');
-//             break;
-
-//         default:
-//             require('./config/static.js');
-//     }
-// });
-
-//load lib/**.js
 var _ = require('./lib/util.js');
 
 for(var i in _){
     feather.util[i] = _[i];
 }
 
-require('./conf-loaded.js');
+//require cli.js overwrite fis-cli.js
+require('./cli.js');

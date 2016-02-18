@@ -7,7 +7,7 @@ var cli = new Liftoff({
 	name: 'feather2',
 	processTitle: 'feather',
 	moduleName: 'feather2',
-	configName: '{feather-conf,feather_conf}',
+	configName: '{feather-conf,feather_conf,conf}',
 	extensions: {
 		'.js': null
 	}
