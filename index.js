@@ -19,9 +19,12 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
-    comboDebug: {},
+    comboDebug: {
+        level: 1,
+        sameBaseUrl: false
+    },
 
-    cssA2R: true,
+    cssA2R: false,
 
     template: {
         suffix: 'html' 
@@ -49,7 +52,6 @@ feather.config.merge({
     require: {
         use: true,
         config: {
-            baseurl: '/',
             rules: [
                 /*
                 :dialog => /dialog/dialog.js
@@ -68,10 +70,7 @@ feather.config.merge({
                 [/(?:^|\/)[^\.]+$/, function(all){
                     return all + '.js';
                 }]
-            ],
-            charset: 'utf-8',
-            map: {},
-            deps: {}
+            ]
         }
     },
 
@@ -80,34 +79,17 @@ feather.config.merge({
     }
 });
 
-feather.on('conf:loaded', function(){
-    //feather.unhook('components');
-    feather.commonMap = {};
+// feather.on('conf:loaded', function(){
+//     console.log(1);
+//     switch(feather.config.get('project.mode')){
+//         case 'php':
+//             require('./config/php.js');
+//             break;
 
-    var modulename = feather.config.get('project.modulename'), ns = feather.config.get('project.name');
-
-    if(!ns){
-        feather.config.set('project.name', ns = '_default');
-    }
-
-    //查找是否有common模块
-    if(modulename && modulename != 'common'){
-        var root = feather.project.getTempPath() + '/release/' + ns + '/common.json';
-
-        if(feather.util.exists(root)){
-            feather.commonMap = feather.util.readJSON(root);
-        }
-    }
-
-    switch(feather.config.get('project.mode')){
-        case 'php':
-            require('./config/php.js');
-            break;
-
-        default:
-            require('./config/static.js');
-    }
-});
+//         default:
+//             require('./config/static.js');
+//     }
+// });
 
 //load lib/**.js
 var _ = require('./lib/util.js');
@@ -115,3 +97,5 @@ var _ = require('./lib/util.js');
 for(var i in _){
     feather.util[i] = _[i];
 }
+
+require('./conf-loaded.js');

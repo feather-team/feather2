@@ -1,7 +1,3 @@
-if(feather.util.isEmpty(feather.config.get('project.domain'))){
-    feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
-}
-
 feather.match('**', {
     useHash: true,
     isHtmlLike: false
@@ -12,7 +8,7 @@ feather.match('**.js', {
     postprocessor: feather.plugin('analyse')
 });
 
-feather.match('/(**.{js,css})', {
+feather.match('/(**.{js,css,less})', {
     moduleId: '$1$2'
 });
 
@@ -45,7 +41,6 @@ feather.match('**.${template.suffix}', {
 });
 
 feather.match('components/(**)', {
-    postprocessor: false,
     url: '${statics}/c_/$1',
     release: 'static/${statics}/c_/$1',
     isComponent: true,
@@ -77,6 +72,10 @@ feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
 feather.match('/{map,plugins}/**', {
     release: '/view/$&',
     useHash: false
+});
+
+feather.match('/test/**', {
+    useHash: false
 })
 
 feather.match('/{feather_conf.js,feather-conf.js}', {
@@ -87,7 +86,7 @@ feather.match('/{feather_conf.js,feather-conf.js}', {
 
 feather.match('::package', {
     packager: feather.plugin('map'),
-    postpackager: feather.plugin('runtime')
+    postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
 });
 
 feather.match('/**', {
