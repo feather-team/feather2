@@ -13,3 +13,9 @@
 [submodule "node_modules/feather2-command-init"]
 	path = node_modules/feather2-command-init
 	url = https://github.com/feather-team/feather2-command-init.git
+[submodule "node_modules/feather2-postpackager-cleancss"]
+	path = node_modules/feather2-postpackager-cleancss
+	url = https://github.com/feather-team/feather2-postpackager-cleancss.git
+[submodule "node_modules/feather2-hook-components"]
+	path = node_modules/feather2-hook-components
+	url = https://github.com/feather-team/feather2-hook-components.git
