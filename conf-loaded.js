@@ -133,6 +133,10 @@ feather.on('conf:loaded', function(){
 
     switch(feather.config.get('project.mode')){
         case 'php':
+            if(feather.util.isEmpty(project.config.get('project.domain'))){
+                feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
+            }
+
             require('./config/php.js');
             break;
 
