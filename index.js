@@ -16,10 +16,10 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
-    comboDebug: {
+    comboDebug: {/*
         level: 1,
         sameBaseUrl: false
-    },
+    */},
 
     cssA2R: false,
 

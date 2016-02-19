@@ -30,6 +30,23 @@ feather.on('conf:loaded', function(){
         	feather.log.on.error('Run common module first please!');
             feather.log.error('Run common module first please!');
         }
+
+        var commonConfig = feather.commonInfo.config, config = feather.config.get();
+
+        feather.config.set('require', commonConfig.require);
+        feather.config.set('template.suffix', commonConfig.template.suffix);
+        feather.config.set('widget', commonConfig.widget);
+        feather.config.set('cssA2R', commonConfig.cssA2R);
+        feather.config.set('comboDebug', commonConfig.comboDebug);
+        feather.config.set('project.mode', commonConfig.project.mode);
+
+        if(feather.util.isEmpty(config.project.domain)){
+            feather.config.set('project.domain', commonConfig.project.domain);
+        }
+
+        if(commonConfig.statics != config.statics){
+            feather.log.warn('common module\'s statics[' + commonConfig.statics + '] is different from current module\'s statics[' + config.statics + ']!');
+        }
     }
 })
 
