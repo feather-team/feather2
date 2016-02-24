@@ -52,7 +52,8 @@ feather.match('components/**.js', {
 
 feather.match('**.{less,css}', {
     parser: feather.plugin('less'),
-    rExt: '.css'
+    rExt: '.css',
+    useSprite: true
 });
 
 feather.match('static/(**)', {
@@ -74,6 +75,7 @@ feather.match('/{map,plugins}/**', {
 });
 
 feather.match('::package', {
+    spriter: feather.plugin('csssprites'),
     packager: feather.plugin('map'),
     postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
 });
