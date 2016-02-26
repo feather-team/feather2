@@ -99,6 +99,14 @@ feather.on('conf:loaded', function(){
     feather.config.set('pack', previousPack);
 });
 
+feather.on('conf:loaded', function(){
+    var files = feather.project.getSourceByPatterns('deploy/*.js');
+
+    feather.util.map(files, function(subpath, file){
+        
+    });
+});
+
 //load config.js
 feather.on('conf:loaded', function(){
     var media = feather.project.currentMedia();
@@ -122,6 +130,10 @@ feather.on('conf:loaded', function(){
                 optimizer: feather.plugin('png-compressor')
             });
 
+            feather.match('::package', {
+                spriter: feather.plugin('csssprites')
+            });
+
         case 'test':
             feather.match('**', {
                 useHash: true
@@ -130,6 +142,8 @@ feather.on('conf:loaded', function(){
 
         default:;
     }
+
+    feather.config.set('project.mode', 'php');
 
     switch(feather.config.get('project.mode')){
         case 'php':

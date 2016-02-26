@@ -75,7 +75,6 @@ feather.match('/{map,plugins}/**', {
 });
 
 feather.match('::package', {
-    spriter: feather.plugin('csssprites'),
     packager: feather.plugin('map'),
     postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
 });

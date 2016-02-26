@@ -27,7 +27,6 @@ feather.cli.run = function(argv, env){
                     break;
             
                 case 'install':
-                  //  process.argv.push.apply(process.argv, ['--repos', 'http://feather-team.github.io/package']);
                     old(argv, env);
                     break;
 
@@ -42,7 +41,7 @@ feather.cli.run = function(argv, env){
                             '-c, --clean': 'clean compile cache',
                             '-u, --unique': 'use unique compile caching',
                             '-r, --root <path>': 'specify project root',
-                            '-f, --file <filename>': 'specify the file path of `feather-conf.js`',
+                            '-f, --file <filename>': 'specify the file path of feather\'s `conf.js`',
                             '--no-color': 'disable colored output',
                             '--verbose': 'enable verbose mode'
                         });
