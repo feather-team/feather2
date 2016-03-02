@@ -100,7 +100,7 @@ feather.on('conf:loaded', function(){
 });
 
 feather.on('conf:loaded', function(){
-    var files = feather.project.getSourceByPatterns('/deploy/*.js');
+    var files = feather.project.getSourceByPatterns('/conf/deploy/*.js');
     var deploys = feather.config.get('deploy') || {};
 
     feather.util.map(files, function(subpath, file){
@@ -211,13 +211,7 @@ feather.on('conf:loaded', function(){
         release: false
     });
 
-    feather.match('/deploy/**', {
-        useCompile: false,
-        useParser: false,
-        release: false
-    });
-
-    feather.match('/conf.js', {
+    feather.match('/conf/deploy/**', {
         useCompile: false,
         useParser: false,
         release: false
