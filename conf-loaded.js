@@ -100,10 +100,39 @@ feather.on('conf:loaded', function(){
 });
 
 feather.on('conf:loaded', function(){
-    var files = feather.project.getSourceByPatterns('deploy/*.js');
+    var files = feather.project.getSourceByPatterns('/deploy/*.js');
+    var deploys = feather.config.get('deploy') || {};
 
     feather.util.map(files, function(subpath, file){
-        
+        if(deploys[file.filename]) return;
+
+        var exports = require(file.realpath);
+        var config = [];
+
+        if(!Array.isArray(exports)){
+            exports = [exports];
+        }
+
+        exports.forEach(function(item){
+            if(!item.to) return;
+
+            if(item.to[0] == '.'){
+                item.to = require('path').normalize(file.dirname + '/' + item.to).replace(/[\\\/]+/g, '/');
+            }
+
+            config.push(item);
+        });
+
+        if(config.length){
+            deploys[file.filename] = config;
+        }        
+    });
+
+    feather.config.set('deploy', deploys);
+    feather.config.set('deploy.preview', {
+        from: '/',
+        to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
+        subOnly: true
     });
 });
 
@@ -176,7 +205,19 @@ feather.on('conf:loaded', function(){
         useHash: false
     });
 
-    feather.match('**/{feather_conf.js,feather-conf.js,conf.js,pack.json}', {
+    feather.match('**/{feather_conf.js,feather-conf.js,pack.json}', {
+        useCompile: false,
+        useParser: false,
+        release: false
+    });
+
+    feather.match('/deploy/**', {
+        useCompile: false,
+        useParser: false,
+        release: false
+    });
+
+    feather.match('/conf.js', {
         useCompile: false,
         useParser: false,
         release: false
@@ -188,12 +229,7 @@ feather.on('conf:loaded', function(){
         useParser: false
     });
 
-    if(isPreview){
-        feather.match('/**', {
-            deploy: feather.plugin('local-deliver', {
-                to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
-                subOnly: true
-            })
-        });
-    }
+    feather.match('**', {
+        deploy: feather.plugin('default')
+    });
 });
