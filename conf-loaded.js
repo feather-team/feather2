@@ -101,7 +101,7 @@ feather.on('conf:loaded', function(){
 
 feather.on('conf:loaded', function(){
     var files = feather.project.getSourceByPatterns('/conf/deploy/*.js');
-    var deploys = feather.config.get('deploy') || {};
+    var deploys = feather.config.get('deploy') || {}, root = feather.project.getProjectPath();
 
     feather.util.map(files, function(subpath, file){
         if(deploys[file.filename]) return;
@@ -117,7 +117,7 @@ feather.on('conf:loaded', function(){
             if(!item.to) return;
 
             if(item.to[0] == '.'){
-                item.to = require('path').normalize(file.dirname + '/' + item.to).replace(/[\\\/]+/g, '/');
+                item.to = require('path').normalize(root + '/' + item.to).replace(/[\\\/]+/g, '/');
             }
 
             config.push(item);
@@ -129,11 +129,6 @@ feather.on('conf:loaded', function(){
     });
 
     feather.config.set('deploy', deploys);
-    feather.config.set('deploy.preview', {
-        from: '/',
-        to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
-        subOnly: true
-    });
 });
 
 //load config.js
@@ -180,6 +175,12 @@ feather.on('conf:loaded', function(){
                 feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
             }
 
+            feather.config.set('deploy.preview', {
+                from: '/',
+                to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
+                subOnly: true
+            });
+
             require('./config/php.js');
             break;
 
@@ -211,7 +212,7 @@ feather.on('conf:loaded', function(){
         release: false
     });
 
-    feather.match('/conf/deploy/**', {
+    feather.match('/conf/**', {
         useCompile: false,
         useParser: false,
         release: false
