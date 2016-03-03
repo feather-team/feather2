@@ -6,6 +6,10 @@
   "bin": {
     "feather2": "bin/feather"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feather-team/feather2.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
