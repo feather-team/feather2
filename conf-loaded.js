@@ -218,6 +218,16 @@ feather.on('conf:loaded', function(){
         release: false
     });
 
+    feather.match('/conf/rewrite.php', {
+        useHash: false,
+        release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
+    });
+
+    feather.match('/conf/compatible.php', {
+        release: isPreview ? '/tmp/compatible.php' : false,
+        useHash: false
+    });
+
     feather.match('**/component.json', {
         useCompile: false,
         useHash: false,

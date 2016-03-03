@@ -1,7 +1,7 @@
 feather.cli.name = 'feather';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
 feather.require.prefixes.unshift('feather', 'feather2', 'fis');
-feather.set('modules.commands', ['init', 'release', 'server', 'install', 'switch', 'inspect']);
+feather.set('modules.commands', ['init', 'release', 'server', 'install', 'switch', 'inspect', 'revert']);
 
 feather.cli.version = function(){        
     var string = feather.util.read(__dirname + '/vendor/icon', true);
@@ -14,7 +14,7 @@ var old = feather.cli.run;
 feather.cli.run = function(argv, env){
     var first = argv[2], action = argv._[0];
 
-    if(['release', 'server', 'init', 'switch', 'install', 'inspect'].indexOf(action) > -1){
+    if(['release', 'server', 'init', 'switch', 'install', 'inspect', 'revert'].indexOf(action) > -1){
         switch(action){
             case 'server':
                 var script = feather.project.getTempPath('www') + '/index.php';
