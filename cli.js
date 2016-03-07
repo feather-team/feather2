@@ -76,6 +76,13 @@ feather.cli.run = function(argv, env){
 
                 break;
 
+            case 'revert':
+                env._configPath = env.configPath;
+                env.configPath = '';
+                
+                old(argv, env);
+                break;
+
             default:
                 old(argv, env);
         }
