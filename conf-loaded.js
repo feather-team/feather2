@@ -255,5 +255,5 @@ feather.on('conf:loaded', function(){
 });
 
 feather.on('conf:loaded', function(){
-    feather._argv.dest == 'preview' && require('feather-command-switch').switch(feather.config.get('project.name'), true);
+    feather._argv.dest == 'preview' && require('feather2-command-switch').switch(feather.config.get('project.name'), true);
 });
