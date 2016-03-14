@@ -175,11 +175,26 @@ feather.on('conf:loaded', function(){
                 feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
             }
 
-            feather.config.set('deploy.preview', {
-                from: '/',
-                to: feather.project.getTempPath('www') + '/proj/' + feather.config.get('project.name'),
-                subOnly: true
-            });
+            var www = feather.project.getTempPath('www');
+
+            feather.config.set('deploy.preview',[ 
+                {
+                    from: '/',
+                    to: www + '/proj/' + feather.config.get('project.name'),
+                    subOnly: true
+                },
+
+                {
+                    from: '/test',
+                    to: www + '/preview'
+                },
+                
+                {
+                    from: '/static',
+                    to: www + '/preview',
+                    subOnly: true
+                }
+            ]);
 
             require('./config/php.js');
             break;
@@ -237,4 +252,8 @@ feather.on('conf:loaded', function(){
     feather.match('**', {
         deploy: feather.plugin('default')
     });
+});
+
+feather.on('conf:loaded', function(){
+    feather._argv.dest == 'preview' && require('feather-command-switch').switch(feather.config.get('project.name'), true);
 });

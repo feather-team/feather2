@@ -17,8 +17,12 @@ feather.cli.run = function(argv, env){
     if(['release', 'server', 'init', 'switch', 'install', 'inspect', 'revert'].indexOf(action) > -1){
         switch(action){
             case 'server':
-                var script = feather.project.getTempPath('www') + '/index.php';
-                !feather.util.isFile(script) && feather.util.copy(__dirname + '/vendor/index.php', script);
+                if(!argv.root && !argv.r){
+                    var www = feather.project.getTempPath('www'), script = www + '/preview/index.php';
+                    !feather.util.exists(script) && feather.util.copy(__dirname + '/vendor/index.php', script);
+                    argv.root = www + '/preview';
+                }
+
                 old(argv, env);
                 break;
         
