@@ -16,10 +16,10 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
-    comboDebug: {/*
-        level: 1,
-        sameBaseUrl: false
-    */},
+    combo: {
+        level: -1, //0为只合并非pkg文件，1为合并所有文件
+        onlySameBaseUrl: false
+    },
 
     cssA2R: false,
 

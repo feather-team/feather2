@@ -243,6 +243,16 @@ feather.on('conf:loaded', function(){
         useHash: false
     });
 
+    feather.match('/conf/engine/local.php', {
+        release: isPreview ? '/view/engine.config.php' : false,
+        useHash: false  
+    });
+
+    feather.match('/conf/engine/online.php', {
+        release: isPreview ? false : '/view/engine.config.php',
+        useHash: false
+    });
+
     feather.match('**/component.json', {
         useCompile: false,
         useHash: false,
