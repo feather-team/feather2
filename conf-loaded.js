@@ -133,135 +133,16 @@ feather.on('conf:loaded', function(){
 
 //load config.js
 feather.on('conf:loaded', function(){
-    var media = feather.project.currentMedia();
-
-    switch(media){
-        case 'pd':
-        case 'production':
-            feather.match('**.js', {
-                optimizer: feather.plugin('uglify-js')
-            });
-
-            feather.match('**.{less,css}', {
-                optimizer: feather.plugin('clean-css')
-            });
-
-            feather.match('**.${template.suffix}', {
-                optimizer: feather.plugin('htmlmin')
-            });
-
-            feather.match('**.png', {
-                optimizer: feather.plugin('png-compressor')
-            });
-
-            feather.match('::package', {
-                spriter: feather.plugin('csssprites')
-            });
-
-        case 'test':
-            feather.match('**', {
-                useHash: true
-            });
-            break;
-
-        default:;
-    }
-
     feather.config.set('project.mode', 'php');
 
     switch(feather.config.get('project.mode')){
         case 'php':
-            if(feather.util.isEmpty(feather.config.get('project.domain'))){
-                feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
-            }
-
-            var www = feather.project.getTempPath('www');
-
-            feather.config.set('deploy.preview',[ 
-                {
-                    from: '/',
-                    to: www + '/proj/' + feather.config.get('project.name'),
-                    subOnly: true
-                },
-
-                {
-                    from: '/test',
-                    to: www + '/preview'
-                },
-                
-                {
-                    from: '/static',
-                    to: www + '/preview',
-                    subOnly: true
-                }
-            ]);
-
             require('./config/php.js');
             break;
 
         default:
             require('./config/static.js');
     }
-
-    //common config
-    var isPreview = feather._argv.dest == 'preview';
-
-    feather.match('/test/**', {
-        useHash: false,
-        release: isPreview ? '$&' : false
-    });
-
-    feather.match('/{rewrite.php,feather_rewrite.php}', {
-        useHash: false,
-        release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
-    });
-
-    feather.match('/{feather_compatible.php,compatible.php}', {
-        release: isPreview ? '/tmp/compatible.php' : false,
-        useHash: false
-    });
-
-    feather.match('**/{feather_conf.js,feather-conf.js,pack.json}', {
-        useCompile: false,
-        useParser: false,
-        release: false
-    });
-
-    feather.match('/conf/**', {
-        useCompile: false,
-        useParser: false,
-        release: false
-    });
-
-    feather.match('/conf/rewrite.php', {
-        useHash: false,
-        release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
-    });
-
-    feather.match('/conf/compatible.php', {
-        release: isPreview ? '/tmp/compatible.php' : false,
-        useHash: false
-    });
-
-    feather.match('/conf/engine/local.php', {
-        release: isPreview ? '/view/engine.config.php' : false,
-        useHash: false  
-    });
-
-    feather.match('/conf/engine/online.php', {
-        release: isPreview ? false : '/view/engine.config.php',
-        useHash: false
-    });
-
-    feather.match('**/component.json', {
-        useCompile: false,
-        useHash: false,
-        useParser: false
-    });
-
-    feather.match('**', {
-        deploy: feather.plugin('default')
-    });
 });
 
 feather.on('conf:loaded', function(){

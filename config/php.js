@@ -1,80 +1,51 @@
-feather.match('**', {
-    isHtmlLike: false
-});
+require('./common.js');
 
-feather.match('**.js', {
-    preprocessor: feather.plugin('analyse'),
-    postprocessor: feather.plugin('analyse')
-});
+var isPreview = feather._argv.dest == 'preview', www = feather.project.getTempPath('www');
 
-feather.match('/(**.{js,css,less})', {
-    moduleId: '$1$2'
-});
-
-feather.match('page/(**)', {
-    url: '${statics}/p_/$1',
-    release: 'static/${statics}/p_/$1'
-});
-
-feather.match('widget/(**)', {
-    url: '${statics}/w_/$1',
-    release: 'static/${statics}/w_/$1',
-    isWidget: true
-});
-
-feather.match('pagelet/(**)', {
-    url: '${statics}/pl_/$1',
-    release: 'static/${statics}/pl_/$1',
-    isWidget: true,
-    isPagelet: true
-});
-
-feather.match('**.${template.suffix}', {
-    release: 'view/$&',
-    isHtmlLike: true,
-    useHash: false,
-    useMap: true,
-    url: false,
-    preprocessor: feather.plugin('analyse'),
-    postprocessor: [feather.plugin('analyse'), feather.plugin('inline-compress')]
-});
-
-feather.match('components/(**)', {
-    url: '${statics}/c_/$1',
-    release: 'static/${statics}/c_/$1',
-    isComponent: true,
-    isHtmlLike: false
-});
-
-feather.match('components/**.js', {
-    useSameNameRequire: true
-});
-
-feather.match('**.{less,css}', {
-    parser: feather.plugin('less'),
-    rExt: '.css',
-    useSprite: true
-});
-
-feather.match('static/(**)', {
-    isHtmlLike: false,
-    url: '${statics}/$1',
-    release: 'static/${statics}/$1'
-});
-
-feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
-    useParser: false,
-    useCompile: false,
-    useHash: false,
-    isThird: true
-});
+if(feather.util.isEmpty(feather.config.get('project.domain'))){
+    feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
+}            
 
 feather.match('/{map,plugins}/**', {
     release: '/view/$&',
     useHash: false
 });
 
-feather.match('::package', {
-    packager: feather.plugin('map'),
-    postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
+feather.match('/conf/rewrite.php', {
+    useHash: false,
+    release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
 });
+
+feather.match('/conf/compatible.php', {
+    release: isPreview ? '/tmp/compatible.php' : false,
+    useHash: false
+});
+
+feather.match('/conf/engine/local.php', {
+    release: isPreview ? '/view/engine.config.php' : false,
+    useHash: false  
+});
+
+feather.match('/conf/engine/online.php', {
+    release: isPreview ? false : '/view/engine.config.php',
+    useHash: false
+});
+
+feather.config.set('deploy.preview',[ 
+    {
+        from: '/',
+        to: www + '/proj/' + feather.config.get('project.name'),
+        subOnly: true
+    },
+
+    {
+        from: '/data',
+        to: www + '/preview'
+    },
+    
+    {
+        from: '/static',
+        to: www + '/preview',
+        subOnly: true
+    }
+]);

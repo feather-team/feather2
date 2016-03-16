@@ -54,11 +54,9 @@ feather.cli.run = function(argv, env){
                 }
 
                 if(argv.c || argv.clean){
-                    var www = feather.project.getTempPath('www');
-
-                    'proj static c_proj view php test tmp deploy cache plugins'.split(' ').forEach(function(item){
-                        feather.util.del(www + '/' + item);
-                    });
+                    try{
+                        feather.util.del(feather.project.getTempPath('www'));
+                    }catch(e){}
                 }
 
                 //每次重新编译时，都不读取缓存，但不包括watch
