@@ -1,6 +1,6 @@
 {
   "name": "feather2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "feather2.0",
   "main": "index.js",
   "bin": {
@@ -16,7 +16,7 @@
   "author": "jsyczhanghao@sina.com",
   "license": "ISC",
   "dependencies": {
-    "feather2-command-switch": "^0.1.0",
+    "feather2-command-switch": "~1.0.0",
     "feather-optimizer-htmlmin": "^0.1.2",
     "feather-postprocessor-inline-compress": "~1.0.0",
     "fis-command-server": "^0.7.7",
