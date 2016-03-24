@@ -123,7 +123,8 @@ feather.match('**/{feather_conf.js,feather-conf.js,pack.json}', {
 feather.match('/conf/**', {
     useCompile: false,
     useParser: false,
-    release: false
+    release: false,
+    useHash: false
 });
 
 feather.match('**/component.json', {
