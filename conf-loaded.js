@@ -37,7 +37,7 @@ feather.on('conf:loaded', function(){
         feather.config.set('template.suffix', commonConfig.template.suffix);
         feather.config.set('widget', commonConfig.widget);
         feather.config.set('cssA2R', commonConfig.cssA2R);
-        feather.config.set('comboDebug', commonConfig.comboDebug);
+        feather.config.set('combo', commonConfig.combo);
         feather.config.set('project.mode', commonConfig.project.mode);
 
         if(feather.util.isEmpty(config.project.domain)){

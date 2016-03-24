@@ -16,8 +16,11 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
-    combo: false,
-
+    combo: {
+        level: -1,//0只合并非pkg文件，1合并所有文件
+        maxUrlLength: 2000
+    },
+    
     cssA2R: false,
 
     template: {

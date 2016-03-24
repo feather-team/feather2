@@ -100,7 +100,7 @@ feather.match('static/(**)', {
 });
 
 //任意目录下的third都不做任何处理
-feather.match(/^\/(?:.+?\/)*third\/.*$/, {
+feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
     useParser: false,
     useCompile: false,
     useHash: false,
