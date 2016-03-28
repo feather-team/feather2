@@ -141,7 +141,7 @@ feather.on('conf:loaded', function(){
             break;
 
         default:
-            require('./config/static.js');
+            require('./config/basic.js');
     }
 });
 

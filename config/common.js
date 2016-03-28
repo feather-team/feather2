@@ -37,8 +37,8 @@ feather.match('**', {
 });
 
 feather.match('**.js', {
-    preprocessor: feather.plugin('analyse'),
-    postprocessor: feather.plugin('analyse')
+    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
+    postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
 });
 
 feather.match('page/(**)', {
@@ -72,8 +72,11 @@ feather.match('**.${template.suffix}', {
     useHash: false,
     useMap: true,
     url: false,
-    preprocessor: feather.plugin('analyse'),
-    postprocessor: [feather.plugin('analyse'), feather.plugin('inline-compress')]
+    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
+    postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat([
+        feather.plugin('analyse'),
+        feather.plugin('inline-compress')
+    ])
 });
 
 feather.match('components/(**)', {
@@ -105,7 +108,7 @@ feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
     useCompile: false,
     useHash: false,
     isThird: true
-});
+}, 100000);
 
 //feather2.0规定data目录 同feather1.x中的test目录，1.x中test目录创建的初衷也是为了测试数据
 feather.match('/data/**', {
@@ -138,6 +141,9 @@ feather.match('**', {
 });
 
 feather.match('::package', {
+    prepackager: feather.config.get('prepackager'),
     packager: feather.plugin('map'),
-    postpackager: [feather.plugin('cleancss'), feather.plugin('runtime')]
+    postpackager: feather.util.makeArray(feather.config.get('postpackager')).concat([
+        feather.plugin('cleancss'), feather.plugin('runtime')
+    ])
 });
