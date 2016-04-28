@@ -55,13 +55,14 @@ feather.cli.run = function(argv, env){
 
                 if(argv.c || argv.clean){
                     try{
+                        feather.util.del(feather.project.getTempPath('www') + '/proj');
                         feather.util.del(feather.project.getTempPath('www'));
                     }catch(e){}
                 }
 
-                //每次重新编译时，都不读取缓存，但不包括watch
-                argv.clean = true;
-                delete argv.c;
+                //每次重新编译时，如果common有重新编译过，则都不读取缓存，但不包括watch
+                // argv.clean = true;
+                // delete argv.c;
 
                 var dest = argv.d || argv.dest;
 

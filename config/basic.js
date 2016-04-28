@@ -1,1 +1,3 @@
-feather.config.set('project.mode', 'static');
+require('./common.js');
+
+feather.config.set('project.mode', 'basic');
