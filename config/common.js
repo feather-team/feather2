@@ -110,6 +110,14 @@ feather.match(/^\/static\/(?:.+?\/)*third\/.*$/, {
     isThird: true
 }, 100000);
 
+//只针对third目录下的同文件夹名的主文件做编译处理
+feather.match(/^\/static\/(?:.+?\/)*third\/([^\/]+)\/\1\.[^\.]+$/, {
+    useParser: true,
+    useCompile: true,
+    useHash: true,
+    isThird: true
+}, 100001);
+
 //feather2.0规定data目录 同feather1.x中的test目录，1.x中test目录创建的初衷也是为了测试数据
 feather.match('/data/**', {
     useHash: false,

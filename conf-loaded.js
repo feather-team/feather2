@@ -39,7 +39,7 @@ feather.on('conf:loaded', function(){
         feather.config.set('cssA2R', commonConfig.cssA2R);
         feather.config.set('combo', commonConfig.combo);
         feather.config.set('project.mode', commonConfig.project.mode);
-        feather.config.set('moduleInfo', commonConfig.moduleInfo || {});
+        feather.config.set('moduleInfo', feather.commonInfo.moduleInfo || {});
 
         if(feather.util.isEmpty(config.project.domain)){
             feather.config.set('project.domain', commonConfig.project.domain);
@@ -55,9 +55,8 @@ feather.on('conf:loaded', function(){
 
         var currentModifyTime = feather.config.get('moduleInfo.' + modulename + '.modifyTime', 0);
         var commonModifyTime = feather.config.get('moduleInfo.common.modifyTime', 0);
-        console.log(commonModifyTime, currentModifyTime);
+
         if(commonModifyTime >= currentModifyTime){
-            console.log(3);
             feather._argv.clean = true;
             delete feather._argv.c;
         }

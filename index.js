@@ -16,12 +16,13 @@ feather.config.merge({
         mode: 'php' //basic, php,
     },
 
-    autoCombine: {
-        use: false,
-        type: 'pack'    //pack, combo
-    },
+    // autoCombine: {
+    //     use: false,
+    //     type: 'pack'    //pack, combo
+    // },
 
     combo: {
+        use: true,
         onlyUnPackFile: false,
         maxUrlLength: 2000
     },
