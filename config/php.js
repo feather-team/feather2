@@ -2,10 +2,6 @@ require('./common.js');
 
 var isPreview = feather._argv.dest == 'preview', www = feather.project.getTempPath('www');
 
-if(feather.util.isEmpty(feather.config.get('project.domain'))){
-    feather.config.set('project.domain', '<?php echo $FEATHER_STATIC_DOMAIN;?>');
-}            
-
 feather.match('/{map,plugins}/**', {
     release: '/view/$&',
     useHash: false

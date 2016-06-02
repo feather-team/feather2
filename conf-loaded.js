@@ -33,20 +33,14 @@ feather.on('conf:loaded', function(){
 
         var commonConfig = feather.commonInfo.config, config = feather.config.get();
 
-        feather.config.set('require', commonConfig.require);
-        feather.config.set('template.suffix', commonConfig.template.suffix);
-        feather.config.set('widget', commonConfig.widget);
-        feather.config.set('cssA2R', commonConfig.cssA2R);
-        feather.config.set('combo', commonConfig.combo);
-        feather.config.set('project.mode', commonConfig.project.mode);
+        'require template widget cssA2R combo'.split(' ').forEach(function(item){
+            feather.config.set(item, commonConfig[item]);
+        });
+
         feather.config.set('moduleInfo', feather.commonInfo.moduleInfo || {});
 
         if(feather.util.isEmpty(config.project.domain)){
             feather.config.set('project.domain', commonConfig.project.domain);
-        }
-
-        if((commonConfig.mode == 'php' || config.mode == 'php') && commonConfig.mode != config.mode){
-            feather.log.warn('common module\'s mode is different from current module\'s mode!');
         }
 
         if(commonConfig.statics != config.statics){
@@ -60,6 +54,16 @@ feather.on('conf:loaded', function(){
             feather._argv.clean = true;
             delete feather._argv.c;
         }
+    }
+
+    switch(feather.config.get('template.engine')){
+        case 'laravel':
+        case 'blade':
+            feather.config.set('template.engine', 'blade');
+            break;
+
+        default: 
+            feather.config.set('template.engine', 'feather');
     }
 })
 
@@ -144,18 +148,7 @@ feather.on('conf:loaded', function(){
     feather.config.set('deploy', deploys);
 });
 
-//load config.js
 feather.on('conf:loaded', function(){
-    switch(feather.config.get('project.mode')){
-        case 'php':
-            require('./config/php.js');
-            break;
-
-        default:
-            require('./config/basic.js');
-    }
-});
-
-feather.on('conf:loaded', function(){
+    require('./config/php.js');
     feather._argv.dest == 'preview' && require('feather2-command-switch').switch(feather.config.get('project.name'), true);
 });
