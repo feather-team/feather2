@@ -149,6 +149,6 @@ feather.on('conf:loaded', function(){
 });
 
 feather.on('conf:loaded', function(){
-    require('./config/php.js');
+    require('./config.js');
     feather._argv.dest == 'preview' && require('feather2-command-switch').switch(feather.config.get('project.name'), true);
 });
