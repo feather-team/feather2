@@ -10,34 +10,33 @@ feather.on('conf:loaded', function(){
 
     //查找是否有common模块
     if(isCommon){
-    	feather.commonInfo = {
-            config: {},
+        feather.releaseInfo = {
+            commonConfig: {},
             components: {},
-            map: {}
+            map: {},
+            modules: {}
         };
     }else{
-        var root = feather.project.getCachePath() + '/info/' + ns + '.json';
+        var root = feather.project.getCachePath() + '/release/' + ns + '.json';
 
         if(feather.util.exists(root)){
             var info = feather.util.read(root);
             try{
-                feather.commonInfo = (new Function('return ' + info))();
+                feather.releaseInfo = (new Function('return ' + info))();
             }catch(e){
-                feather.log.on.error('common info is not valid jsondata! rerun common module please!');
-                feather.log.error('common info is not valid jsondata! rerun common module please!');
+                feather.log.on.error('Project\'s release info is not valid jsondata! Rerun common module please!');
+                feather.log.error('Project\'s release info is not valid jsondata! Rerun common module please!');
             }
         }else{
         	feather.log.on.error('Run common module first please!');
             feather.log.error('Run common module first please!');
         }
 
-        var commonConfig = feather.commonInfo.config, config = feather.config.get();
+        var commonConfig = feather.releaseInfo.commonConfig, config = feather.config.get();
 
         'require template widget cssA2R combo'.split(' ').forEach(function(item){
             feather.config.set(item, commonConfig[item]);
         });
-
-        feather.config.set('moduleInfo', feather.commonInfo.moduleInfo || {});
 
         if(feather.util.isEmpty(config.project.domain)){
             feather.config.set('project.domain', commonConfig.project.domain);
@@ -47,8 +46,10 @@ feather.on('conf:loaded', function(){
             feather.log.warn('common module\'s statics[' + commonConfig.statics + '] is different from current module\'s statics[' + config.statics + ']!');
         }
 
-        var currentModifyTime = feather.config.get('moduleInfo.' + modulename + '.modifyTime', 0);
-        var commonModifyTime = feather.config.get('moduleInfo.common.modifyTime', 0);
+        feather.config.set('release', feather.releaseInfo);
+
+        var currentModifyTime = feather.config.get('release.modules.' + modulename + '.modifyTime', 0);
+        var commonModifyTime = feather.config.get('release.modules.common.modifyTime', 0);
 
         if(commonModifyTime >= currentModifyTime){
             feather._argv.clean = true;
@@ -65,6 +66,8 @@ feather.on('conf:loaded', function(){
         default: 
             feather.config.set('template.engine', 'feather');
     }
+
+    require('./config.js');
 })
 
 //load all pack.json
@@ -116,6 +119,7 @@ feather.on('conf:loaded', function(){
     feather.config.set('pack', previousPack);
 });
 
+//analyse deploy files
 feather.on('conf:loaded', function(){
     var files = feather.project.getSourceByPatterns('/conf/deploy/*.js');
     var deploys = feather.config.get('deploy') || {}, root = feather.project.getProjectPath();
@@ -149,6 +153,5 @@ feather.on('conf:loaded', function(){
 });
 
 feather.on('conf:loaded', function(){
-    require('./config.js');
     feather._argv.dest == 'preview' && require('feather2-command-switch').switch(feather.config.get('project.name'), true);
 });

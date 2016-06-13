@@ -60,10 +60,6 @@ feather.cli.run = function(argv, env){
                     }catch(e){}
                 }
 
-                //每次重新编译时，如果common有重新编译过，则都不读取缓存，但不包括watch
-                // argv.clean = true;
-                // delete argv.c;
-
                 var dest = argv.d || argv.dest;
 
                 if(typeof dest != 'string'){

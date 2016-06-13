@@ -32,10 +32,6 @@ switch(media){
     default:;
 }
 
-feather.match('**', {
-    isHtmlLike: false
-});
-
 feather.match('**.js', {
     preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
     postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
