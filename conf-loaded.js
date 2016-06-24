@@ -46,6 +46,8 @@ feather.on('conf:loaded', function(){
             feather.log.warn('common module\'s statics[' + commonConfig.statics + '] is different from current module\'s statics[' + config.statics + ']!');
         }
 
+        console.log(feather.releaseInfo);
+
         feather.config.set('release', feather.releaseInfo);
 
         var currentModifyTime = feather.config.get('release.modules.' + modulename + '.modifyTime', 0);
