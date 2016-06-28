@@ -12,8 +12,7 @@ feather.config.merge({
         name: '_default',
         charset: 'utf-8',
         modulename: '',
-        ignore: ['node_modules/**', 'output/**', '.git/**'],
-        mode: 'php' //basic, php,
+        ignore: ['node_modules/**', 'output/**', '.git/**']
     },
 
     combo: {
@@ -25,7 +24,8 @@ feather.config.merge({
     cssA2R: false,
 
     template: {
-        suffix: 'html' 
+        suffix: 'html',
+        engine: 'feather'
     },
 
     widget: {

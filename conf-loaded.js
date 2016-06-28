@@ -17,7 +17,7 @@ feather.on('conf:loaded', function(){
             modules: {}
         };
     }else{
-        var root = feather.project.getCachePath() + '/release/' + ns + '.json';
+        var root = feather.project.getCachePath() + '/info/' + ns + '.json';
 
         if(feather.util.exists(root)){
             var info = feather.util.read(root);
@@ -47,7 +47,7 @@ feather.on('conf:loaded', function(){
             feather.log.warn('common module\'s statics[' + commonConfig.statics + '] is different from current module\'s statics[' + config.statics + ']!');
         }
 
-        console.log(feather.releaseInfo);
+        console.log(feather.releaseInfo)
 
         feather.config.set('release', feather.releaseInfo);
 
