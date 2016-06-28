@@ -21,6 +21,7 @@ feather.on('conf:loaded', function(){
 
         if(feather.util.exists(root)){
             var info = feather.util.read(root);
+            
             try{
                 feather.releaseInfo = (new Function('return ' + info))();
             }catch(e){

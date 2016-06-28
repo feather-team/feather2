@@ -14,7 +14,7 @@ var cli = new Liftoff({
 });
 
 cli.launch({
-	cwd: argv.r || argv.root,
+	cwd: (argv.r || argv.root) + '/',
 	configPath: argv.f || argv.file
 }, function(env){
 	var feather;
