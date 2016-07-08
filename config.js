@@ -11,7 +11,7 @@ switch(media){
             optimizer: feather.plugin('clean-css')
         });
 
-        feather.match('**.${template.suffix}', {
+        feather.match('**.html', {
             optimizer: feather.plugin('htmlmin')
         });
 
@@ -37,11 +37,6 @@ feather.match('**.js', {
     postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
 });
 
-feather.match('page/(**)', {
-    url: '${statics}/p_/$1',
-    release: 'static/${statics}/p_/$1'
-});
-
 feather.match('pagelet/(**)', {
     url: '${statics}/pl_/$1',
     release: 'static/${statics}/pl_/$1',
@@ -62,15 +57,15 @@ feather.match('/test/(**)', {
     release: isPreview ? 'static/${statics}/t_/$1' : false
 }, isPreview ? null : 10);
 
-feather.match('**.${template.suffix}', {
+
+feather.match('**.html', {
     release: 'view/$&',
     isHtmlLike: true,
     useHash: false,
     useMap: true,
     url: false,
-    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
+    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('widget')),
     postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat([
-        feather.plugin('analyse'),
         feather.plugin('inline-compress')
     ])
 });
@@ -144,37 +139,17 @@ feather.match('**', {
     deploy: feather.plugin('default')
 });
 
-feather.match('::package', {
-    prepackager: feather.config.get('prepackager'),
-    packager: feather.plugin('map'),
-    postpackager: feather.util.makeArray(feather.config.get('postpackager')).concat([
-        feather.plugin('cleancss'), feather.plugin('runtime')
-    ])
-});
-
-feather.match('/{map,plugins}/**', {
-    release: '/view/$&',
-    useHash: false
-});
+// feather.match('::package', {
+//     prepackager: feather.config.get('prepackager'),
+//     packager: feather.plugin('map'),
+//     postpackager: feather.util.makeArray(feather.config.get('postpackager')).concat([
+//         feather.plugin('cleancss'), feather.plugin('runtime')
+//     ])
+// });
 
 feather.match('/conf/rewrite.php', {
     useHash: false,
     release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
-});
-
-feather.match('/conf/compatible.php', {
-    release: isPreview ? '/tmp/compatible.php' : false,
-    useHash: false
-});
-
-feather.match('/conf/engine/local.php', {
-    release: isPreview ? '/view/engine.config.php' : false,
-    useHash: false  
-});
-
-feather.match('/conf/engine/online.php', {
-    release: isPreview ? false : '/view/engine.config.php',
-    useHash: false
 });
 
 feather.config.set('deploy.preview',[ 

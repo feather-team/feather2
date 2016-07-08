@@ -20,11 +20,6 @@ feather.config.merge({
         onlyUnPackFile: false,
         maxUrlLength: 2000
     },
-    
-    template: {
-        suffix: 'html',
-        engine: 'feather'
-    },
 
     statics: '/static',
 
