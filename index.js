@@ -11,7 +11,6 @@ feather.config.merge({
 
         name: '_default',
         charset: 'utf-8',
-        modulename: '',
         ignore: ['node_modules/**', 'output/**', '.git/**']
     },
 
