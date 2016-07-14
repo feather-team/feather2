@@ -32,17 +32,17 @@ switch(media){
     default:;
 }
 
-feather.match('**.js', {
-    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
-    postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
-});
+// feather.match('**.js', {
+//     preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
+//     postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
+// });
 
-feather.match('pagelet/(**)', {
-    url: '${statics}/pl_/$1',
-    release: 'static/${statics}/pl_/$1',
-    isWidget: true,
-    isPagelet: true
-});
+// feather.match('pagelet/(**)', {
+//     url: '${statics}/pl_/$1',
+//     release: 'static/${statics}/pl_/$1',
+//     isWidget: true,
+//     isPagelet: true
+// });
 
 feather.match('widget/(**)', {
     url: '${statics}/w_/$1',
@@ -64,10 +64,10 @@ feather.match('**.html', {
     useHash: false,
     useMap: true,
     url: false,
-    preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('widget')),
-    postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat([
-        feather.plugin('inline-compress')
-    ])
+    preprocessor: [feather.plugin('widget-analyse')].concat(feather.config.get('preprocessor')),
+    // postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat([
+    //     //feather.plugin('inline-compress')
+    // ])
 });
 
 feather.match('components/(**)', {
@@ -146,11 +146,6 @@ feather.match('**', {
 //         feather.plugin('cleancss'), feather.plugin('runtime')
 //     ])
 // });
-
-feather.match('/conf/rewrite.php', {
-    useHash: false,
-    release: isPreview ? '/tmp/rewrite/${project.modulename}.php' : false
-});
 
 feather.config.set('deploy.preview',[ 
     {

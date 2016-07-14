@@ -20,6 +20,8 @@ feather.config.merge({
         maxUrlLength: 2000
     },
 
+    replaceWidget: '<link rel="import" href="${url}?__inline" />',
+
     statics: '/static',
 
     require: {
@@ -27,6 +29,8 @@ feather.config.merge({
             rules: []
         }
     },
+
+    preprocessor: [],
 
     server: {
         rewrite: 'index.php',
