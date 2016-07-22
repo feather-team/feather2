@@ -14,6 +14,10 @@ feather.config.merge({
         ignore: ['node_modules/**', 'output/**', '.git/**']
     },
 
+    template: {
+        suffix: 'html'
+    },
+
     combo: {
         use: true,
         onlyUnPackFile: false,
