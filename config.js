@@ -32,17 +32,10 @@ switch(media){
     default:;
 }
 
-// feather.match('**.js', {
-//     preprocessor: feather.util.makeArray(feather.config.get('preprocessor')).concat(feather.plugin('analyse')),
-//     postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat(feather.plugin('analyse'))
-// });
-
-// feather.match('pagelet/(**)', {
-//     url: '${statics}/pl_/$1',
-//     release: 'static/${statics}/pl_/$1',
-//     isWidget: true,
-//     isPagelet: true
-// });
+feather.match('**.js', {
+    preprocessor: feather.config.get('preprocessor').concat(feather.plugin('analyse')),
+    postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
+});
 
 feather.match('widget/(**)', {
     url: '${statics}/w_/$1',
