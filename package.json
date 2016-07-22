@@ -22,7 +22,6 @@
     "feather2-deploy-default": "~1.0.0",
     "feather2-packager-map": "~1.0.0",
     "feather2-postprocessor-analyse": "~1.0.0",
-    "feather2-preprocessor-analyse": "~1.0.0",
     "fis-parser-less": "^0.1.3",
     "fis3": "3.3.30",
     "fis3-deploy-ftp-umu": "^0.1.7",

@@ -32,7 +32,7 @@ feather.config.merge({
         }
     },
 
-    preprocessor: [],
+    preprocessor: ['widget'],
     postprocessor: [],
     prepackager: [],
     postpackager: [],
