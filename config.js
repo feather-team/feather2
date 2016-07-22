@@ -33,7 +33,7 @@ switch(media){
 }
 
 feather.match('**.js', {
-    preprocessor: feather.config.get('preprocessor').concat(feather.plugin('analyse')),
+    preprocessor: feather.config.get('preprocessor'),
     postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
 });
 
@@ -63,7 +63,7 @@ feather.match('**.html', {
     useHash: false,
     useMap: true,
     url: false,
-    preprocessor: feather.config.get('preprocessor').concat(feather.plugin('analyse')),
+    preprocessor: feather.config.get('preprocessor'),
     postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
 });
 

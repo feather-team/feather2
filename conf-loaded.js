@@ -85,7 +85,3 @@ feather.on('conf:loaded', function(){
 
     feather.config.set('deploy', deploys);
 });
-
-feather.on('conf:loaded', function(){
-    feather._argv.dest == 'preview' && require('feather2-command-switch').switch(feather.config.get('project.name'), true);
-});
