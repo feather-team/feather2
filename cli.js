@@ -17,10 +17,8 @@ feather.cli.run = function(argv, env){
     if(['release', 'server', 'init', 'switch', 'install', 'inspect', 'revert'].indexOf(action) > -1){
         switch(action){
             case 'server':
-                if(!argv.root && !argv.r){
-                    var www = feather.project.getTempPath('www'), script = www + '/preview/index.php';
-                    !feather.util.exists(script) && feather.util.copy(__dirname + '/vendor/index.php', script);
-                    argv.root = www + '/preview';
+                if(!argv.type){
+                    argv.type = feather.config.get('server.type');
                 }
 
                 old(argv, env);

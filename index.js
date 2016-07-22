@@ -15,12 +15,10 @@ feather.config.merge({
     },
 
     combo: {
-        use: false,
+        use: true,
         onlyUnPackFile: false,
         maxUrlLength: 2000
     },
-
-    replaceWidget: '<link rel="import" href="${url}?__inline" />',
 
     statics: '/static',
 
@@ -31,10 +29,11 @@ feather.config.merge({
     },
 
     preprocessor: [],
-
+    postprocessor: [],
+    prepackager: [],
+    postpackager: [],
     server: {
-        rewrite: 'index.php',
-        type: 'php'
+        type: 'node'
     }
 });
 

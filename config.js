@@ -50,6 +50,12 @@ feather.match('widget/(**)', {
     isWidget: true
 });
 
+feather.match('pagelet/(**)', {
+    url: '${statics}/pl_/$1',
+    release: 'static/${statics}/pl_/$1',
+    isPagelet: true
+});
+
 //feather2.0支持test目录，作为测试目录， 同page目录，只是release时，如果不是预览模式，则不会产出，用于日常的单元测试
 //此目录下所有静态资源都会被临时产出到static/t_下面
 feather.match('/test/(**)', {
@@ -64,10 +70,8 @@ feather.match('**.html', {
     useHash: false,
     useMap: true,
     url: false,
-    preprocessor: [feather.plugin('widget-analyse')].concat(feather.config.get('preprocessor')),
-    // postprocessor: feather.util.makeArray(feather.config.get('postprocessor')).concat([
-    //     //feather.plugin('inline-compress')
-    // ])
+    preprocessor: feather.config.get('preprocessor').concat(feather.plugin('analyse')),
+    postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
 });
 
 feather.match('components/(**)', {
@@ -116,7 +120,7 @@ feather.match('/data/**', {
     release: isPreview ? '$&' : false
 });
 
-feather.match('**/{feather_conf.js,feather-conf.js,pack.json}', {
+feather.match('**/pack.json', {
     useCompile: false,
     useParser: false,
     release: false
@@ -125,43 +129,36 @@ feather.match('**/{feather_conf.js,feather-conf.js,pack.json}', {
 feather.match('/conf/**', {
     useCompile: false,
     useParser: false,
-    release: false,
-    useHash: false
+    release: false
 });
 
 feather.match('**/component.json', {
     useCompile: false,
-    useHash: false,
-    useParser: false
+    useParser: false,
+    release: false
 });
 
 feather.match('**', {
     deploy: feather.plugin('default')
 });
 
-// feather.match('::package', {
-//     prepackager: feather.config.get('prepackager'),
-//     packager: feather.plugin('map'),
-//     postpackager: feather.util.makeArray(feather.config.get('postpackager')).concat([
-//         feather.plugin('cleancss'), feather.plugin('runtime')
-//     ])
-// });
+feather.match('::package', {
+    prepackager: feather.config.get('prepackager').concat(feather.plugin('framework')),
+    packager: feather.plugin('map'),
+    postpackager: feather.config.get('postpackager').concat([
+        feather.plugin('loader')
+    ])
+});
 
 feather.config.set('deploy.preview',[ 
     {
-        from: '/',
-        to: www + '/proj/' + feather.config.get('project.name'),
+        from: '/static',
+        to: www + '/static',
         subOnly: true
     },
-
     {
-        from: '/data',
-        to: www + '/preview'
-    },
-    
-    {
-        from: '/static',
-        to: www + '/preview',
+        from: '/view',
+        to: www,
         subOnly: true
     }
 ]);
