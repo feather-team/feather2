@@ -13,12 +13,16 @@ var cli = new Liftoff({
 	}
 });
 
+if(!argv.r && !argv.root){
+	argv.r = process.cwd();
+}
+
 cli.launch({
 	cwd: (argv.r || argv.root),
 	configPath: argv.f || argv.file
 }, function(env){
 	var feather;
-
+	console.log(env);
 	env.modulePath = path.join(__dirname, '../index.js');
 	feather = require(env.modulePath);
 	feather.set('system.localNPMFolder', path.join(env.cwd));

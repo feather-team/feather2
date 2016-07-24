@@ -9,7 +9,6 @@ feather.config.merge({
             text: 'phtml'
         },
 
-        name: '_default',
         charset: 'utf-8',
         ignore: ['node_modules/**', 'output/**', '.git/**']
     },
