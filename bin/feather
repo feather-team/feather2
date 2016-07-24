@@ -22,7 +22,7 @@ cli.launch({
 	configPath: argv.f || argv.file
 }, function(env){
 	var feather;
-	console.log(env);
+
 	env.modulePath = path.join(__dirname, '../index.js');
 	feather = require(env.modulePath);
 	feather.set('system.localNPMFolder', path.join(env.cwd));
