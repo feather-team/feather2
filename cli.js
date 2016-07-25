@@ -1,7 +1,7 @@
 feather.cli.name = 'feather';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
 feather.require.prefixes.unshift('feather', 'feather2');
-feather.set('modules.commands', ['init', 'release', 'server', 'install', 'switch', 'inspect', 'revert']);
+feather.set('modules.commands', ['init', 'release', 'server', 'install', 'inspect']);
 
 feather.cli.version = function(){        
     var string = feather.util.read(__dirname + '/vendor/icon', true);
@@ -14,7 +14,7 @@ var old = feather.cli.run;
 feather.cli.run = function(argv, env){
     var first = argv[2], action = argv._[0];
 
-    if(['release', 'server', 'init', 'switch', 'install', 'inspect', 'revert'].indexOf(action) > -1){
+    if(['release', 'server', 'init', 'install', 'inspect'].indexOf(action) > -1){
         switch(action){
             case 'server':
                 if(!argv.type){
@@ -51,12 +51,11 @@ feather.cli.run = function(argv, env){
                     feather.log.error('Not found feather\'s config file! Please confirm it\'s a valid feather project');
                 }
 
-                if(argv.c || argv.clean){
-                    try{
-                        feather.util.del(feather.project.getTempPath('www') + '/proj');
-                        feather.util.del(feather.project.getTempPath('www'));
-                    }catch(e){}
-                }
+                argv.clean = true;
+
+                try{
+                    feather.util.del(feather.project.getTempPath('www'));
+                }catch(e){}
 
                 var dest = argv.d || argv.dest;
 
@@ -66,18 +65,9 @@ feather.cli.run = function(argv, env){
                 }
 
                 feather._argv = argv;
-                
                 require('./conf-loaded.js');
-
                 old(argv, env);
 
-                break;
-
-            case 'revert':
-                env._configPath = env.configPath;
-                env.configPath = '';
-                
-                old(argv, env);
                 break;
 
             default:
