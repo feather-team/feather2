@@ -1,4 +1,11 @@
 var media = feather.project.currentMedia(), isPreview = feather._argv.dest == 'preview', www = feather.project.getTempPath('www');
+var statics = feather.config.get('statics'), namespace = feather.config.get('namespace');
+
+if(namespace){
+    feather.config.set('output.static', statics + '/' + namespace);
+}else{
+    feather.config.set('output.static', statics);
+}
 
 switch(media){
     case 'pd':
@@ -11,7 +18,7 @@ switch(media){
             optimizer: feather.plugin('clean-css')
         });
 
-        feather.match('**.html', {
+        feather.match('**.${template.suffix}', {
             optimizer: feather.plugin('htmlmin')
         });
 
@@ -38,27 +45,26 @@ feather.match('**.js', {
 });
 
 feather.match('widget/(**)', {
-    url: '${statics}/w_/$1',
-    release: 'static/${statics}/w_/$1',
+    url: '${output.static}/w_/$1',
+    release: 'static/${output.static}/w_/$1',
     isWidget: true
 });
 
 feather.match('pagelet/(**)', {
-    url: '${statics}/pl_/$1',
-    release: 'static/${statics}/pl_/$1',
+    url: '${output.static}/pl_/$1',
+    release: 'static/${output.static}/pl_/$1',
     isPagelet: true
 });
 
 //feather2.0支持test目录，作为测试目录， 同page目录，只是release时，如果不是预览模式，则不会产出，用于日常的单元测试
 //此目录下所有静态资源都会被临时产出到static/t_下面
-feather.match('/test/(**)', {
-    url: '${statics}/t_/$1',
-    release: isPreview ? 'static/${statics}/t_/$1' : false
+feather.match('test/(**)', {
+    url: '${output.static}/t_/$1',
+    release: isPreview ? 'static/${output.static}/t_/$1' : false
 }, isPreview ? null : 10);
 
-
-feather.match('**.html', {
-    release: 'view/$&',
+feather.match('/(**.${template.suffix})', {
+    release: 'view/${namespace}/$&',
     isHtmlLike: true,
     useHash: false,
     useMap: true,
@@ -68,8 +74,8 @@ feather.match('**.html', {
 });
 
 feather.match('components/(**)', {
-    url: '${statics}/c_/$1',
-    release: 'static/${statics}/c_/$1',
+    url: '${output.static}/c_/$1',
+    release: 'static/${output.static}/c_/$1',
     isComponent: true,
     isHtmlLike: false
 }, 10);
@@ -86,8 +92,8 @@ feather.match('**.{less,css}', {
 
 feather.match('static/(**)', {
     isHtmlLike: false,
-    url: '${statics}/$1',
-    release: 'static/${statics}/$1'
+    url: '${output.static}/$1',
+    release: 'static/${output.static}/$1'
 });
 
 //任意目录下的third都不做任何处理

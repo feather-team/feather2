@@ -4,6 +4,8 @@ global.feather = module.exports = require('fis3');
 
 //feather default config
 feather.config.merge({
+    namespace: '',
+    
     project: {
         fileType: {
             text: 'phtml'
@@ -26,9 +28,7 @@ feather.config.merge({
     statics: '/static',
 
     require: {
-        config: {
-            rules: []
-        }
+        config: {}
     },
 
     preprocessor: ['widget'],
