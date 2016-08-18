@@ -1,6 +1,7 @@
 'use strict';
 
 feather.on('conf:loaded', function(){
+    feather.config.set('component.dir', 'components');
     require('./config.js');
 })
 

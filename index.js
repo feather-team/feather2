@@ -19,32 +19,27 @@ feather.config.merge({
         suffix: 'html'
     },
 
-    combo: {
-        use: true,
-        onlyUnPackFile: false,
-        maxUrlLength: 2000
+    autoPack: {
+        type: 'combo',
+        options: {
+            onlyUnPackFile: false,
+            maxUrlLength: 2000
+        }
     },
 
     statics: '/static',
-
-    require: {
-        config: {}
-    },
-
+    
     preprocessor: ['widget'],
-    postprocessor: [],
-    prepackager: [],
-    postpackager: [],
+    postprocessor: [require('feather2-postprocessor-analyse')],
+    prepackager: [require('feather2-prepackager-framework')],
+    packager: [require('feather2-packager-map')],
+    postpackager: ['loader'],
+    
     server: {
         type: 'node'
     }
 });
 
-var _ = require('./lib/util.js');
-
-for(var i in _){
-    feather.util[i] = _[i];
-}
-
+require('./lib/util.js');
 //require cli.js overwrite fis-cli.js
 require('./cli.js');

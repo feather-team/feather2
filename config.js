@@ -1,4 +1,4 @@
-var media = feather.project.currentMedia(), isPreview = feather._argv.dest == 'preview', www = feather.project.getTempPath('www');
+var media = feather.project.currentMedia(), isPreview = feather.isPreviewMode, www = feather.project.getTempPath('www');
 var statics = feather.config.get('statics'), namespace = feather.config.get('namespace');
 
 if(namespace){
@@ -8,8 +8,19 @@ if(namespace){
 }
 
 switch(media){
+    case 'test':
+        feather.match('**.js', {
+            optimizer: feather.plugin('uglify-js', {
+                sourceMap: true
+            })
+        });
+
     case 'pd':
     case 'production':
+        feather.match('**', {
+            useHash: true
+        });
+
         feather.match('**.js', {
             optimizer: feather.plugin('uglify-js')
         });
@@ -30,10 +41,6 @@ switch(media){
             spriter: feather.plugin('csssprites')
         });
 
-    case 'test':
-        feather.match('**', {
-            useHash: true
-        });
         break;
 
     default:;
@@ -41,7 +48,7 @@ switch(media){
 
 feather.match('**.js', {
     preprocessor: feather.config.get('preprocessor'),
-    postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
+    postprocessor: feather.config.get('postprocessor')
 });
 
 feather.match('widget/(**)', {
@@ -70,7 +77,7 @@ feather.match('/(**.${template.suffix})', {
     useMap: true,
     url: false,
     preprocessor: feather.config.get('preprocessor'),
-    postprocessor: feather.config.get('postprocessor').concat(feather.plugin('analyse'))
+    postprocessor: feather.config.get('postprocessor')
 });
 
 feather.match('components/(**)', {
@@ -128,10 +135,10 @@ feather.match('**/pack.json', {
 feather.match('/conf/**', {
     useCompile: false,
     useParser: false,
-    release: false
+    release: isPreview ? '$&' : false
 });
 
-feather.match('**/component.json', {
+feather.match('**/{component,bower}.json', {
     useCompile: false,
     useParser: false,
     release: false
@@ -142,22 +149,26 @@ feather.match('**', {
 });
 
 feather.match('::package', {
-    prepackager: feather.config.get('prepackager').concat(feather.plugin('framework')),
-    packager: feather.plugin('map'),
-    postpackager: feather.config.get('postpackager').concat([
-        feather.plugin('loader')
-    ])
+    prepackager: feather.config.get('prepackager'),
+    packager: feather.config.get('packager'),
+    postpackager: feather.config.get('postpackager')
 });
 
-feather.config.set('deploy.preview',[ 
-    {
-        from: '/static',
-        to: www + '/static',
-        subOnly: true
-    },
-    {
-        from: '/view',
-        to: www,
-        subOnly: true
-    }
-]);
+if(!feather.config.get('deploy.preview')){
+    feather.config.set('deploy.preview', [ 
+        {
+            from: '/static',
+            to: www + '/static',
+            subOnly: true
+        },
+        {
+            from: '/view',
+            to: www,
+            subOnly: true
+        },
+        {
+            from: '/conf',
+            to: www
+        }
+    ]);
+}

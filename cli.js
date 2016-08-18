@@ -1,4 +1,4 @@
-feather.cli.name = 'feather';
+feather.cli.name = 'feather2';
 feather.cli.info = feather.util.readJSON(__dirname + '/package.json');
 feather.require.prefixes.unshift('feather', 'feather2');
 feather.set('modules.commands', ['init', 'release', 'server', 'install', 'inspect']);
@@ -52,15 +52,13 @@ feather.cli.run = function(argv, env){
                 }
 
                 argv.clean = true;
-
-                try{
-                    feather.util.del(feather.project.getTempPath('www'));
-                }catch(e){}
+                delete argv._;
 
                 var dest = argv.d || argv.dest;
 
                 if(typeof dest != 'string'){
                     argv.dest = 'preview';
+                    feather.isPreviewMode = true;
                     delete argv.d;
                 }
 
