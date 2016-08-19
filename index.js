@@ -29,7 +29,7 @@ feather.config.merge({
 
     statics: '/static',
     
-    preprocessor: ['widget'],
+    preprocessor: ['label-analyse'],
     postprocessor: [require('feather2-postprocessor-analyse')],
     prepackager: [require('feather2-prepackager-framework')],
     packager: [require('feather2-packager-map')],

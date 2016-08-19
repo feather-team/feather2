@@ -52,7 +52,7 @@ feather.cli.run = function(argv, env){
                 }
 
                 argv.clean = true;
-                delete argv._;
+                delete argv.c;
 
                 var dest = argv.d || argv.dest;
 
@@ -64,6 +64,7 @@ feather.cli.run = function(argv, env){
 
                 feather._argv = argv;
                 require('./conf-loaded.js');
+
                 old(argv, env);
 
                 break;
