@@ -5,6 +5,11 @@ global.feather = module.exports = require('fis3');
 //feather default config
 feather.config.merge({
     namespace: '',
+
+    component: {
+        ext: ['.js', '.jsx', '.coffee', '.css', '.sass', '.scss', '.less', '.html', '.tpl', '.vm'],
+        dir: 'components'
+    },
     
     project: {
         fileType: {
@@ -36,7 +41,8 @@ feather.config.merge({
     postpackager: ['loader'],
     
     server: {
-        type: 'node'
+        type: 'node',
+        clean: true
     }
 });
 

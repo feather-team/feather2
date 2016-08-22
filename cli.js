@@ -51,9 +51,6 @@ feather.cli.run = function(argv, env){
                     feather.log.error('Not found feather\'s config file! Please confirm it\'s a valid feather project');
                 }
 
-                argv.clean = true;
-                delete argv.c;
-
                 var dest = argv.d || argv.dest;
 
                 if(typeof dest != 'string'){

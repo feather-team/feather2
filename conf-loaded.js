@@ -1,9 +1,16 @@
 'use strict';
 
 feather.on('conf:loaded', function(){
+    //强制components作为component目录
     feather.config.set('component.dir', 'components');
     require('./config.js');
-})
+
+    if(feather.config.get('server.clean')){
+        try{
+            feather.util.del(feather.project.getTempPath('www'));
+        }catch(e){}
+    }
+});
 
 //load all pack.json
 feather.on('conf:loaded', function(){
