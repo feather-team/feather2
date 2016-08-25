@@ -169,10 +169,6 @@ if(!feather.config.get('deploy.preview')){
         {
             from: '/conf',
             to: www
-        },
-        {
-            from: '/map.json',
-            to: www
         }
     ]);
 }
