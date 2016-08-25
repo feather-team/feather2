@@ -25,7 +25,7 @@ feather.config.merge({
     },
 
     autoPack: {
-        type: 'combo',
+        type: 'combo',  //可选 combo， 关闭 false
         options: {
             onlyUnPackFile: false,
             maxUrlLength: 2000
