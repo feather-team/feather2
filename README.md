@@ -2,7 +2,7 @@ feather2.0
 ==========================
 feather2.0是继[feather](http://github.com/feather-team/feather)之后基于fis3.0进行扩展的工程化框架。
 
-2.0的架构做出了很大的调整，并目标于feather1.x不同，2.0仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。
+2.0的架构做出了很大的调整，提高用户的易用性，并于feather1.x不同，2.0仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。
 
 基于2.0可以非常容易的再次扩展出动态语言的工程化框架，并且开发量也较少，如: [lothar](http://github.com/feather-team/lothar)(blade模板引擎)
 
