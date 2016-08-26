@@ -172,7 +172,11 @@ main.html
 
 #### pagelet
 
-pagelet的使用格式：<pagelet "pagelet名[#外部包裹textarea的id]">
+使用格式
+
+```html
+<pagelet "pagelet名[#外部包裹textarea的id]">
+```
 
 main.html
 ```html
