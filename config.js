@@ -135,6 +135,7 @@ feather.match('**/pack.json', {
 feather.match('/conf/**', {
     useCompile: false,
     useParser: false,
+    useHash: false,
     release: isPreview ? '$&' : false
 }, -1);
 
