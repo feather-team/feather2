@@ -1,6 +1,6 @@
 {
   "name": "feather2",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "feather2.0",
   "main": "index.js",
   "bin": {
@@ -20,7 +20,7 @@
     "feather-postprocessor-inline-compress": "~1.0.0",
     "feather2-command-init": "^1.1.0",
     "feather2-command-install": "^1.0.0",
-    "feather2-deploy-default": "~1.0.0",
+    "feather2-deploy-default": "~1.1.0",
     "feather2-hook-components": "^1.1.0",
     "feather2-packager-map": "^1.0.2",
     "feather2-postpackager-loader": "^1.1.0",

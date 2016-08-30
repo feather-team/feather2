@@ -139,10 +139,10 @@ feather.match('/conf/**', {
     release: isPreview ? '$&' : false
 }, -1);
 
-feather.match('**/{component,bower}.json', {
+feather.match('**/{component,package,bower}.json', {
     useCompile: false,
     useParser: false,
-    release: false
+    useMap: false
 }, -1);
 
 feather.match('**', {

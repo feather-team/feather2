@@ -63,13 +63,15 @@ feather.on('conf:loaded', function(){
 
 //analyse deploy files
 feather.on('conf:loaded', function(){
-    var files = feather.project.getSourceByPatterns('/conf/deploy/*.js');
-    var deploys = feather.config.get('deploy') || {}, root = feather.project.getProjectPath();
+    var root = feather.project.getProjectPath(), files = feather.util.find(root + '/conf/deploy', '*.js') || [];
+    var deploys = feather.config.get('deploy') || {};
 
-    feather.util.map(files, function(subpath, file){
-        if(deploys[file.filename]) return;
+    files.forEach(function(file){
+        var info = feather.util.ext(file);
 
-        var exports = require(file.realpath);
+        if(deploys[info.filename]) return;
+
+        var exports = require(file);
         var config = [];
 
         if(!Array.isArray(exports)){
@@ -87,7 +89,7 @@ feather.on('conf:loaded', function(){
         });
 
         if(config.length){
-            deploys[file.filename] = config;
+            deploys[info.filename] = config;
         }        
     });
 

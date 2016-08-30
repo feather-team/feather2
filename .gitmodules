@@ -25,3 +25,6 @@
 [submodule "node_modules/feather2-hook-components"]
 	path = node_modules/feather2-hook-components
 	url = https://github.com/feather-team/feather2-hook-components.git
+[submodule "node_modules/feather2-deploy-default"]
+	path = node_modules/feather2-deploy-default
+	url = https://github.com/feather-team/feather2-deploy-default.git
