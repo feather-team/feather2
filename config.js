@@ -123,7 +123,8 @@ feather.match(/^\/static\/(?:.+?\/)*third\/([^\/]+)\/\1\.[^\.]+$/, {
 feather.match('/data/**', {
     useHash: false,
     useCompile: false,
-    release: isPreview ? '$&' : false
+    release: isPreview ? '$&' : false,
+    isHtmlLike: false
 }, -1);
 
 feather.match('**/pack.json', {
@@ -143,6 +144,10 @@ feather.match('**/{component,package,bower}.json', {
     useCompile: false,
     useParser: false,
     useMap: false
+}, -1);
+
+feather.match('map.json', {
+    release: false
 }, -1);
 
 feather.match('**', {
