@@ -175,6 +175,10 @@ if(!feather.config.get('deploy.preview')){
         {
             from: '/conf',
             to: www
+        },
+        {
+            from: '/data',
+            to: www
         }
     ]);
 }
