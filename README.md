@@ -22,7 +22,7 @@ feather2.0是继[feather](http://github.com/feather-team/feather)之后基于fis
 |多人协同   | 支持             |支持     |
 |多模块开发   |动态支持             |动态支持     |
 |静态资源位置优化、去重   | 支持            |支持     |
-|静态资源按需加载   | 不支持             |支持     |
+|静态资源按需加载、combo   | 不支持             |支持     |
 |远程deploy方式   | http             |http/ftp     |
 
 ## 使用文档
