@@ -14,6 +14,8 @@ var old = feather.cli.run;
 feather.cli.run = function(argv, env){
     var first = argv[2], action = argv._[0];
 
+    feather._argv = argv;
+
     if(['release', 'server', 'init', 'install', 'inspect'].indexOf(action) > -1){
         switch(action){
             case 'server':
@@ -59,7 +61,6 @@ feather.cli.run = function(argv, env){
                     delete argv.d;
                 }
 
-                feather._argv = argv;
                 require('./conf-loaded.js');
 
                 old(argv, env);

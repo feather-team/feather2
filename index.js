@@ -64,3 +64,7 @@ feather.project.lookup = function(path, file){
 
     return info;
 };
+
+process.on('exit', function(){
+    console.log(123);
+});
