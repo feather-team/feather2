@@ -64,3 +64,13 @@ feather.project.lookup = function(path, file){
 
     return info;
 };
+
+feather.cache.clean = function(name){
+    name = name || '';
+    
+    var path = fis.project.getCachePath(name);
+
+    if (fis.util.exists(path)) {
+        feather.util.delAsync(path);
+    }
+};
