@@ -51,6 +51,8 @@ require('./lib/util.js');
 //require cli.js overwrite fis-cli.js
 require('./cli.js');
 
+feather.compile = require('./lib/compile.js');
+
 //lookup查找规则 如果是非/|.开头的文件，查找时，优先按照相对路径处理，找不到，按照相对于根目录处理
 //以便统一所有情况
 var lookup = feather.project.lookup;
