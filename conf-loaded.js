@@ -14,12 +14,12 @@ feather.on('conf:loaded', function(){
 
 //load all pack.json
 feather.on('conf:loaded', function(){
-    var files = feather.project.getSourceByPatterns('**/pack.json');
+    var root = feather.project.getProjectPath(), files = feather.util.find(root, '**/pack.json') || [];
     var path = require('path');
     var previousPack = feather.config.get('pack') || {}, pack = {};
 
-    Object.keys(files).reverse().forEach(function(subpath){
-        var file = files[subpath];
+    files.reverse().forEach(function(realpath){
+        var file = feather.file(realpath);
         var dir = path.dirname(file.id) + '/';
         var json;
 

@@ -147,7 +147,7 @@ feather.match('**/{component,package,bower}.json', {
 }, -1);
 
 feather.match('map.json', {
-    release: false
+    release: isPreview ? '$&' : false
 }, -1);
 
 feather.match('**', {
@@ -178,6 +178,10 @@ if(!feather.config.get('deploy.preview')){
         },
         {
             from: '/data',
+            to: www
+        },
+        {
+            from: '/map.json',
             to: www
         }
     ]);
