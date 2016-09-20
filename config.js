@@ -7,22 +7,26 @@ if(namespace){
     feather.config.set('output.static', statics);
 }
 
+feather.media('test').match('**.js', {
+    optimizer: feather.plugin('uglify-js', {
+        sourceMap: true
+    })
+}, -1);
+
+feather.media('pd').match('**.js', {
+    optimizer: feather.plugin('uglify-js')
+}, -1);
+
+feather.media('production').match('**.js', {
+    optimizer: feather.plugin('uglify-js')
+}, -1);
+
 switch(media){
     case 'test':
-        feather.match('**.js', {
-            optimizer: feather.plugin('uglify-js', {
-                sourceMap: true
-            })
-        }, -1);
-
     case 'pd':
     case 'production':
         feather.match('**', {
             useHash: true
-        }, -1);
-
-        feather.match('**.js', {
-            optimizer: feather.plugin('uglify-js')
         }, -1);
 
         feather.match('**.{less,css}', {

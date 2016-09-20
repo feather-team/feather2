@@ -47,6 +47,8 @@ feather.config.merge({
     }
 });
 
+feather.media('dev').set('project.domain', '');
+
 require('./lib/util.js');
 //require cli.js overwrite fis-cli.js
 require('./cli.js');
