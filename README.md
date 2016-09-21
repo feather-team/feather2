@@ -5,9 +5,7 @@ feather2
 
 feather2是继[feather](http://github.com/feather-team/feather)之后基于fis3.0进行扩展的工程化框架。
 
-feather2的架构做出了很大的调整，提高用户的易用性，并于feather1.x不同，feather2仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。
-
-feather2.1开始，集成[mustache](http://mustache.github.io/)模板语法，提供除lothar外其他动态语言开发的框架选择，mustache支持多达几十种开发语言，简单简洁的语法，基本可以满足简单的开发需求，更复杂的一些场景还是建议直接进行定制化
+feather2的架构做出了很大的调整，提高用户的易用性，并于feather1.x不同，feather2起初仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。2.1开始，集成[mustache](http://mustache.github.io/)模板语法，提供除lothar外其他动态语言开发的框架选择，mustache支持多达几十种开发语言，简单简洁的语法，集合feather所提供的模板扩展标签使用，基本可以满足简单的动态语言开发需求，更复杂的一些场景还是建议直接进行定制化
 
 基于feather2可以非常容易的再次扩展出动态语言的工程化框架，并且开发量也较少，如: [lothar](http://github.com/feather-team/lothar)(blade模板引擎)
 
