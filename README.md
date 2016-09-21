@@ -3,15 +3,17 @@ feather2
 
 ![](https://img.shields.io/npm/v/feather2.svg) ![](https://img.shields.io/npm/dm/feather2.svg)
 
-feather2.0是继[feather](http://github.com/feather-team/feather)之后基于fis3.0进行扩展的工程化框架。
+feather2是继[feather](http://github.com/feather-team/feather)之后基于fis3.0进行扩展的工程化框架。
 
-2.0的架构做出了很大的调整，提高用户的易用性，并于feather1.x不同，2.0仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。
+feather2的架构做出了很大的调整，提高用户的易用性，并于feather1.x不同，feather2仅仅只适用于纯静态页面的前端项目，比如webapp，或结合一些mvvm框架进行开发的项目。
 
-基于2.0可以非常容易的再次扩展出动态语言的工程化框架，并且开发量也较少，如: [lothar](http://github.com/feather-team/lothar)(blade模板引擎)
+feather2.1开始，集成[mustache](http://mustache.github.io/)模板语法，提供除lothar外其他动态语言开发的框架选择，mustache支持多达几十种开发语言，简单简洁的语法，基本可以满足简单的开发需求，更复杂的一些场景还是建议直接进行定制化
+
+基于feather2可以非常容易的再次扩展出动态语言的工程化框架，并且开发量也较少，如: [lothar](http://github.com/feather-team/lothar)(blade模板引擎)
 
 ####2.0与1.x部分功能比较：
 
-| 功能                  | 1.x               | 2.0   |
+| 功能                  | 1.x               | 2.x   |
 |-----------------------|------------------:|------:|
 |fis基本功能   | 支持             |支持     |
 |本地服务器、url转发、mock数据   | 支持（java）             |支持（node）     |
@@ -96,7 +98,7 @@ feather2 server start
 ```
 
 #### page
-page目录在feather2.0中并未被脚手架创建，所以在2.0中，任意非feather占用的目录都可作为page目录使用，page级别文件则表示是一个标准正常可访问的页面，比如index.html， 通过浏览器可直接访问，同时，只有page文件可用于被继承。
+page目录在feather2中并未被脚手架创建，所以在feather2中，任意非feather占用的目录都可作为page目录使用，page级别文件则表示是一个标准正常可访问的页面，比如index.html， 通过浏览器可直接访问，同时，只有page文件可用于被继承。
 
 #### widget
 widget目录存放一些页面和模版相关的小部件，比如公用头部，公用尾部，sidebar，nav等。
@@ -116,7 +118,7 @@ require.async('a');
 pagelet目录同widget目录，不同的是，pagelet可以作为异步加载请求返回， feather会自动对其做对应的封装，并处理依赖。同时也可直接使用 <pagelet> 标签直接引入， 以做bigrender方式的优化
 
 ### 组件包（components）
-2.0中直接对bower install进行了支持，因为bower的资源是非常丰富的，甚至可以支持github上的某一个仓库的分支。
+feather2中直接对bower install进行了支持，因为bower的资源是非常丰富的，甚至可以支持github上的某一个仓库的分支。
 
 但是bower包几乎都采用了amd或umd规范，甚至有些bower包的是没有规范的，而feather因为静态资源管理的问题，采用了commonjs规范，因此feather对其进行了一定的处理，尽可能的让bower中的包能够正常的运行。同时删除了bower包中无用的文件。
 
@@ -151,7 +153,7 @@ feather首先会对所有components目录中包当中的**.json文件进行分�
 当使用某一个文件时，无论是否是全路径还是段路径，都会直接先查找components中的包，如果找到正确的文件，则引用，否则会直接按照全路径做对应的处理
 
 ### 模板语法标签
-2.0考虑到了单或多页面应用，及为了提高页面的重用性，对html进行了扩展，支持模板继承(extends, block)，模板引用功能(widget, pagelet)，并可互相组合使用。
+feathe2考虑到了单或多页面应用，及为了提高页面的重用性，对html进行了扩展，支持模板继承(extends, block)，模板引用功能(widget, pagelet)，并可互相组合使用。
 
 #### extends、block、widget
 
