@@ -52,3 +52,4 @@ feather2 release -r demo
 feather2 server start
 ```
 
+[具体文档使用传送](/feather-team/feather2-document)
