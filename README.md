@@ -52,5 +52,3 @@ feather2 release -r demo
 feather2 server start
 ```
 
-
-
