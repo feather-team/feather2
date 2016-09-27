@@ -1,8 +1,39 @@
 'use strict';
 
+var _ = feather.util;
+
 feather.on('conf:loaded', function(){
     //强制components作为component目录
     feather.config.set('component.dir', 'components');
+    
+    var jsExts = feather.config.get('project.fileType.js', []);
+    var txtExts = _.makeArray(feather.config.get('project.fileType.text'));
+
+    if(Array.isArray(jsExts)){
+        jsExts = jsExts.join(',');
+    }
+
+    var cExts = feather.config.get('component.ext'), exts = [];
+
+    jsExts.split(/\s*,\s*/).forEach(function(item){
+        if(item.charAt(0) == '.'){
+            item = item.substr(1);
+        }
+
+        if(item != 'js'){
+            cExts.push('.' + item);
+            exts.push(item);
+        }
+    });
+
+    feather.config.set('project.fileType.text', txtExts.concat(exts).join(','));
+    feather.config.set('project.fileType.js', exts);
+
+    exts.unshift('js');
+    feather.config.set('component.ext', cExts);
+});
+
+feather.on('conf:loaded', function(){
     require('./config.js');
 
     if(feather.config.get('server.clean')){

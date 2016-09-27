@@ -1,5 +1,6 @@
 var media = feather.project.currentMedia(), isPreview = feather.isPreviewMode, www = feather.project.getTempPath('www');
 var statics = feather.config.get('statics'), namespace = feather.config.get('namespace');
+var jsExt = '{' + feather.config.get('project.fileType.js').join(',') + '}', cssExt = '{css,less}';
 
 if(namespace){
     feather.config.set('output.static', statics + '/' + namespace);
@@ -7,17 +8,17 @@ if(namespace){
     feather.config.set('output.static', statics);
 }
 
-feather.media('test').match('**.js', {
+feather.media('test').match('**.' + jsExt, {
     optimizer: feather.plugin('uglify-js', {
         sourceMap: true
     })
 }, -1);
 
-feather.media('pd').match('**.js', {
+feather.media('pd').match('**.' + jsExt, {
     optimizer: feather.plugin('uglify-js')
 }, -1);
 
-feather.media('production').match('**.js', {
+feather.media('production').match('**.' + jsExt, {
     optimizer: feather.plugin('uglify-js')
 }, -1);
 
@@ -29,7 +30,7 @@ switch(media){
             useHash: true
         }, -1);
 
-        feather.match('**.{less,css}', {
+        feather.match('**.' + cssExt, {
             optimizer: feather.plugin('clean-css')
         }, -1);
 
@@ -50,9 +51,10 @@ switch(media){
     default:;
 }
 
-feather.match('**.js', {
+feather.match('**.' + jsExt, {
     preprocessor: feather.config.get('preprocessor'),
-    postprocessor: feather.config.get('postprocessor')
+    postprocessor: feather.config.get('postprocessor'),
+    rExt: '.js'
 }, -1);
 
 feather.match('widget/(**)', {
@@ -91,11 +93,11 @@ feather.match('components/(**)', {
     isHtmlLike: false
 }, -1);
 
-feather.match('components/**.js', {
+feather.match('components/**.' + jsExt, {
     useSameNameRequire: true
 }, -1);
 
-feather.match('**.{less,css}', {
+feather.match('**.' + cssExt, {
     parser: feather.plugin('less'),
     rExt: '.css',
     useSprite: true
