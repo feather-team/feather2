@@ -22,7 +22,8 @@ feather.config.merge({
     },
 
     template: {
-        suffix: 'html'
+        suffix: 'html',
+        mustache: false
     },
 
     autoPack: {

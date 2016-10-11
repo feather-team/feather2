@@ -42,10 +42,6 @@ switch(media){
             optimizer: feather.plugin('png-compressor')
         }, -1);
 
-        feather.match('::package', {
-            spriter: feather.plugin('csssprites')
-        }, -1);
-
         break;
 
     default:;
@@ -153,7 +149,8 @@ feather.match('**/{component,package,bower}.json', {
 }, -1);
 
 feather.match('map.json', {
-    release: isPreview ? '$&' : false
+    release: isPreview ? '$&' : false,
+    useHash: false
 }, -1);
 
 feather.match('**', {
@@ -161,6 +158,7 @@ feather.match('**', {
 }, -1);
 
 feather.match('::package', {
+    spriter: feather.plugin('csssprites'),
     prepackager: feather.config.get('prepackager'),
     packager: feather.config.get('packager'),
     postpackager: feather.config.get('postpackager')
