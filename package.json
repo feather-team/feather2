@@ -1,6 +1,6 @@
 {
   "name": "feather2",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "feather2.0",
   "main": "index.js",
   "bin": {

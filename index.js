@@ -35,8 +35,12 @@ feather.config.merge({
         }
     },
 
+    require: {
+        config: {}
+    },
+
     statics: '/static',
-    
+
     preprocessor: ['label-analyse'],
     postprocessor: [require('feather2-postprocessor-analyse')],
     prepackager: [require('feather2-prepackager-framework')],

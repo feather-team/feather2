@@ -45,9 +45,11 @@ feather.on('conf:loaded', function(){
 
 //load all pack.json
 feather.on('conf:loaded', function(){
-    var root = feather.project.getProjectPath(), files = feather.util.find(root, '**/pack.json') || [];
-    var path = require('path');
+    var path = require('path'), root = feather.project.getProjectPath();
     var previousPack = feather.config.get('pack') || {}, pack = {};
+    var files = (feather.util.find(root, null, 'node_modules') || []).filter(function(file){
+        return feather.util.filter(file, '**/pack.json');
+    });
 
     files.reverse().forEach(function(realpath){
         var file = feather.file(realpath);
