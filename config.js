@@ -47,6 +47,11 @@ switch(media){
     default:;
 }
 
+feather.match('/(**)', {
+    release: 'static/${output.static}/s_/$1',
+    url: '${output.static}/s_/$1'
+}, -1);
+
 feather.match('**.' + jsExt, {
     preprocessor: feather.config.get('preprocessor'),
     postprocessor: feather.config.get('postprocessor'),
@@ -135,11 +140,12 @@ feather.match('**/pack.json', {
     release: false
 }, -1);
 
-feather.match('/conf/**', {
+feather.match('conf/**', {
     useCompile: false,
     useParser: false,
     useHash: false,
-    release: isPreview ? '$&' : false
+    release: 
+    isPreview ? '$&' : false
 }, -1);
 
 feather.match('**/{component,package,bower}.json', {

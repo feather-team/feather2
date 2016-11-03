@@ -90,8 +90,10 @@ feather.on('conf:loaded', function(){
     for(var i in pack){
         previousPack[i] = pack[i];
     }
-    
-    feather.config.set('pack', previousPack);
+
+    feather.config.set('pack', _.merge({
+        'conf/pkg_.js': 'conf/**.js'    //备份conf下的js文件，防止用户打包时，不小心收集了里面的内容
+    }, previousPack));
 });
 
 //analyse deploy files
