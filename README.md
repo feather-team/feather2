@@ -56,5 +56,8 @@ feather2 server start
 
 ## 插件列表
 
+* preprocessor阶段
+    * [feather2-postprocessor-inline-compress](http://github.com/jsyczhanghao/feather2-postprocessor-inline-compress) 压缩行内样式及js
+
 * postpackager阶段
     * [feather2-postpackager-script2bottom](http://github.com/jsyczhanghao/feather2-postpackager-script2bottom) 调整script标签的位置
