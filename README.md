@@ -28,7 +28,9 @@ feather2的架构做出了很大的调整，提高用户的易用性，并于fea
 |静态资源按需加载、combo   | 不支持             |支持     |
 |远程deploy方式   | http             |http/ftp     |
 
-## 使用文档
+#### feather2对fis3本身提供的部分内容重新扩展， 使用--watch功能时，编译速度比fis3快3倍，以应对项目文件过多时的编译性能问题。
+
+## [使用文档](http://github.com/feather-team/feather2-document)
 
 ### gogogo
 
@@ -52,4 +54,7 @@ feather2 release -r demo
 feather2 server start
 ```
 
-[具体文档使用传送](http://github.com/feather-team/feather2-document)
+## 插件列表
+
+* postpackager阶段
+    * [feather2-postpackager-script2bottom](http://github.com/jsyczhanghao/feather2-postpackager-script2bottom) 调整script标签的位置
