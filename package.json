@@ -17,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "feather-optimizer-htmlmin": "^0.1.2",
-    "feather-postprocessor-inline-compress": "~1.0.0",
     "feather2-command-init": "^1.1.0",
     "feather2-command-install": "^1.1.0",
     "feather2-deploy-default": "~1.1.0",
