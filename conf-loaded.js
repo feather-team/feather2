@@ -98,7 +98,13 @@ feather.on('conf:loaded', function(){
 
 //analyse deploy files
 feather.on('conf:loaded', function(){
-    var root = feather.project.getProjectPath(), files = feather.util.find(root + '/conf/deploy', '*.js') || [];
+    var root = feather.project.getProjectPath();
+
+    if(!feather.util.exists(root + '/conf/deploy')){
+        return ;
+    }
+
+    var files = feather.util.find(root + '/conf/deploy', '*.js') || [];
     var deploys = feather.config.get('deploy') || {};
 
     files.forEach(function(file){
