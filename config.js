@@ -58,13 +58,13 @@ feather.match('**.' + jsExt, {
     rExt: '.js'
 }, -1);
 
-feather.match('widget/(**)', {
+feather.match('/widget/(**)', {
     url: '${output.static}/w_/$1',
     release: 'static/${output.static}/w_/$1',
     isWidget: true
 }, -1);
 
-feather.match('pagelet/(**)', {
+feather.match('/pagelet/(**)', {
     url: '${output.static}/pl_/$1',
     release: 'static/${output.static}/pl_/$1',
     isPagelet: true
@@ -72,7 +72,7 @@ feather.match('pagelet/(**)', {
 
 //feather2.0支持test目录，作为测试目录， 同page目录，只是release时，如果不是预览模式，则不会产出，用于日常的单元测试
 //此目录下所有静态资源都会被临时产出到static/t_下面
-feather.match('test/(**)', {
+feather.match('/test/(**)', {
     url: '${output.static}/t_/$1',
     release: isPreview ? 'static/${output.static}/t_/$1' : false
 }, isPreview ? -1: 100000);
@@ -87,14 +87,14 @@ feather.match('/(**.${template.suffix})', {
     postprocessor: feather.config.get('postprocessor')
 }, -1);
 
-feather.match('components/(**)', {
+feather.match('/components/(**)', {
     url: '${output.static}/c_/$1',
     release: 'static/${output.static}/c_/$1',
     isComponent: true,
     isHtmlLike: false
 }, -1);
 
-feather.match('components/**.' + jsExt, {
+feather.match('/components/**.' + jsExt, {
     useSameNameRequire: true
 }, -1);
 
@@ -104,7 +104,7 @@ feather.match('**.' + cssExt, {
     useSprite: true
 }, -1);
 
-feather.match('static/(**)', {
+feather.match('/static/(**)', {
     isHtmlLike: false,
     url: '${output.static}/$1',
     release: 'static/${output.static}/$1'
@@ -140,7 +140,7 @@ feather.match('**/pack.json', {
     release: false
 }, -1);
 
-feather.match('conf/**', {
+feather.match('/conf/**', {
     useCompile: false,
     useParser: false,
     useHash: false,
@@ -154,7 +154,7 @@ feather.match('**/{component,package,bower}.json', {
     useMap: false
 }, -1);
 
-feather.match('map.json', {
+feather.match('/map.json', {
     release: isPreview ? '$&' : false,
     useHash: false
 }, -1);
