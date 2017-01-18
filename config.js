@@ -23,6 +23,13 @@ feather.media('production').match('**.' + jsExt, {
 }, -1);
 
 switch(media){
+    case 'debug':
+        feather.match('**', {
+            useHash: true
+        }, -1);
+
+        break;
+
     case 'test':
     case 'pd':
     case 'production':
