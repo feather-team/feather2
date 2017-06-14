@@ -1,6 +1,14 @@
 var media = feather.project.currentMedia(), isPreview = feather.isPreviewMode, www = feather.project.getTempPath('www');
 var statics = feather.config.get('statics'), namespace = feather.config.get('namespace');
-var jsExt = '{' + feather.config.get('project.fileType.js').join(',') + '}', cssExt = '{css,less}';
+var jsExt = formatExts(feather.config.get('project.fileType.js')), cssExt = formatExts(feather.config.get('project.fileType.css'));
+
+function formatExts(exts){
+    if(exts.length == 1){
+        return exts[0];
+    }
+
+    return '{' + exts.join(',') + '}';
+}
 
 if(namespace){
     feather.config.set('output.static', statics + '/' + namespace);
@@ -94,14 +102,14 @@ feather.match('/(**.${template.suffix})', {
     postprocessor: feather.config.get('postprocessor')
 }, -1);
 
-feather.match('/components/(**)', {
+feather.match('/${component.dir}/(**)', {
     url: '${output.static}/c_/$1',
     release: 'static/${output.static}/c_/$1',
     isComponent: true,
     isHtmlLike: false
 }, -1);
 
-feather.match('/components/**.' + jsExt, {
+feather.match('/${component.dir}/**.' + jsExt, {
     useSameNameRequire: true
 }, -1);
 

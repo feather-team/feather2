@@ -7,14 +7,15 @@ feather.config.merge({
     namespace: '',
 
     component: {
-        ext: ['.js', '.css', '.less'],
+        ext: ['.js', '.css'],
         dir: 'components'
     },
     
     project: {
         fileType: {
             text: 'phtml',
-            js: []
+            js: [],
+            css: ['less']
         },
 
         charset: 'utf-8',

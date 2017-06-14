@@ -2,34 +2,47 @@
 
 var _ = feather.util;
 
+function serialize(exts){
+    if(!exts) return [];
+
+    if(typeof exts == 'string'){
+        exts = exts.split(/\s*,\s*/);
+    }
+
+    return exts.map(function(ext){
+        return ext.replace(/^\./, '');
+    });
+}
+
 feather.on('conf:loaded', function(){
     //强制components作为component目录
     feather.config.set('component.dir', 'components');
     
-    var jsExts = feather.config.get('project.fileType.js', []);
-    var txtExts = _.makeArray(feather.config.get('project.fileType.text'));
-
-    if(Array.isArray(jsExts)){
-        jsExts = jsExts.join(',');
-    }
-
+    var jsExts = serialize(feather.config.get('project.fileType.js'));
+    var cssExts = serialize(feather.config.get('project.fileType.css'));
+    var txtExts = serialize(feather.config.get('project.fileType.text'));
     var cExts = feather.config.get('component.ext'), exts = [];
+    var cJsExts = [], cCssExts = [];
 
-    jsExts.split(/\s*,\s*/).forEach(function(item){
-        if(item.charAt(0) == '.'){
-            item = item.substr(1);
-        }
-
-        if(item != 'js'){
-            cExts.push('.' + item);
-            exts.push(item);
-        }
+    jsExts.forEach(function(ext){
+        cJsExts.push('.' + ext);
     });
 
-    feather.config.set('project.fileType.text', txtExts.concat(exts).join(','));
-    feather.config.set('project.fileType.js', exts);
+    cExts = cJsExts.concat(cExts);
 
-    exts.unshift('js');
+    cssExts.forEach(function(ext){
+        cCssExts.push('.' + ext);
+    });
+
+    cExts = cExts.concat(cCssExts);
+
+    feather.config.set('project.fileType.text', txtExts.concat(jsExts, cssExts));
+
+    jsExts.unshift('js');
+    cssExts.unshift('css');
+
+    feather.config.set('project.fileType.js', jsExts);
+    feather.config.set('project.fileType.css', cssExts);
     feather.config.set('component.ext', cExts);
 });
 
