@@ -66,13 +66,14 @@ feather.on('conf:loaded', function(){
 
     files.reverse().forEach(function(realpath){
         var file = feather.file(realpath);
-        var dir = path.dirname(file.id) + '/';
+        var id = file.subpath.replace('/', '');
+        var dir = path.dirname(id) + '/';
         var json;
 
         try{
             json = JSON.parse(file.getContent());
         }catch(e){
-            feather.log.warn('unable to load file [`%s`].', file.id);
+            feather.log.warn('unable to load file [`%s`].', id);
         }
 
         if(json){
