@@ -61,4 +61,4 @@ feather2 server start
 
 * postpackager阶段
     * [feather2-postpackager-script2bottom](http://github.com/jsyczhanghao/feather2-postpackager-script2bottom) 调整script标签的位置
-    * [feather2-postpackager-offline](http://github.com/jsyczhanghao/feather2-postpackager-offline) 离线资源插件，用于本地hybrid应用
+    * [feather2-postpackager-offline](http://github.com/jsyczhanghao/feather2-postpackager-offline) 离线资源插件，用于本地hybrid应用
