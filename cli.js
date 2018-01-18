@@ -56,15 +56,20 @@ feather.cli.run = function(argv, env){
                 var dest = argv.d || argv.dest;
 
                 if(typeof dest != 'string'){
-                    argv.dest = 'preview';
+                    dest = argv.dest = 'preview';
                     feather.isPreviewMode = true;
                     delete argv.d;
                 }
 
+                feather.config.set('cli', {
+                    dest: dest,
+                    isPreviewMode: !!feather.isPreviewMode,
+                    watch: !!(argv.w || argv.watch),
+                    media: argv._[1] || 'dev'
+                });
+
                 require('./conf-loaded.js');
-
                 old(argv, env);
-
                 break;
 
             default:

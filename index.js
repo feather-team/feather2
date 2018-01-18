@@ -1,6 +1,7 @@
 'use strict';
 
 global.feather = module.exports = require('fis3');
+process.EventEmitter = require('events')
 
 //feather default config
 feather.config.merge({
