@@ -57,16 +57,21 @@ feather2 server start
 ## 插件列表
 
 * parser阶段
-   * [feather2-parser-vue](http://github.com/jsyczhanghao/feather2-parser-vue) vue单文件组件的编译插件
+    * [feather2-parser-vue](http://github.com/jsyczhanghao/feather2-parser-vue) vue单文件组件的编译插件
    
 * hook
-   * [feather2-hook-nodemodules](http://github.com/jsyczhanghao/feather2-hook-nodemoules) 完美支持npm包管理的hook插件
-   * [feather2-hook-vuehot](http://github.com/jsyczhanghao/feather2-hook-vuehot) vue模块热更新，无需刷新页面，自动更改页面修改
-   * [feather2-hook-anysuffix](http://github.com/jsyczhanghao/feather2-hook-anysuffix) 模块查找支持任意后缀
+
+    * [feather2-hook-nodemodules](http://github.com/jsyczhanghao/feather2-hook-nodemoules) 完美支持npm包管理的hook插件
+    
+    * [feather2-hook-vuehot](http://github.com/jsyczhanghao/feather2-hook-vuehot) vue模块热更新，无需刷新页面，自动更改页面修改
+    
+    * [feather2-hook-anysuffix](http://github.com/jsyczhanghao/feather2-hook-anysuffix) 模块查找支持任意后缀
 
 * preprocessor阶段
+
     * [feather2-postprocessor-inline-compress](http://github.com/jsyczhanghao/feather2-postprocessor-inline-compress) 压缩行内样式及js
 
 * postpackager阶段
+
     * [feather2-postpackager-script2bottom](http://github.com/jsyczhanghao/feather2-postpackager-script2bottom) 调整script标签的位置
     * [feather2-postpackager-offline](http://github.com/jsyczhanghao/feather2-postpackager-offline) 离线资源插件，用于本地hybrid应用
